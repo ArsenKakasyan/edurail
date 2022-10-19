@@ -32,9 +32,9 @@ function message($msg)
 		
 		if(!empty($_SESSION['message']))
 		{
-			return $_SESSION['message'];
-
+			$msg = $_SESSION['message'];
 			unset($_SESSION['message']);
+			return $_SESSION['message'];
 		}
 	}
 

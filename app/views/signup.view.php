@@ -39,6 +39,9 @@
 
 <body>
 
+<?php if(message()):?>
+
+  <?php endif;?>
   <main>
     <div class="container">
 
