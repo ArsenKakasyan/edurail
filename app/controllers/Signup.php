@@ -17,9 +17,10 @@ class Signup extends Controller
 			if($user->validate($_POST))
 			{
 				$_POST['date'] = date("Y-m-d H:i:s");
+				$_POST['role'] = user;
 				$user->insert($_POST);
 				
-				message("Ваш аккаунт был успешно создан");
+				message("Ваш аккаунт был успешно создан. Выполните вход");
 				redirect('login');
 			}
 		}

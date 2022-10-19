@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+  <title> Вход - <?=APP_NAME?></title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -62,25 +62,33 @@
                     <h5 class="card-title text-center pb-0 fs-4">Вход в аккаунт</h5>
                     <p class="text-center small">Чтобы войти введите данные</p>
                   </div>
-                  
+
                   <?php if(message()):?>
                     <div class="alert alert-danger text-center"><?=message('', true)?></div>
                   <?php endif;?>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <?php if(!empty($errors['email'])):?>
+                    <div class="alert alert-danger text-center"><?=$errors['email']?></div>
+                  <?php endif;?>
+
+                  
+
+                  <form method="post" class="row g-3 needs-validation" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Никнейм</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Пожалуйста, введите никнейм!</div>
+                        <span class="input-group-text" id="inputGroupPrepend">Email</span>
+                        <input value="<?= set_value('email')?>" type="text" name="email" class="form-control" id="yourUsername" required1>
+                        <div class="invalid-feedback">Пожалуйста, введите email.</div>
+
+                        
+
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Пароль</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input value="<?= set_value('password')?>" type="password" name="password" class="form-control" id="yourPassword" required1>
                       <div class="invalid-feedback">Пожалуйста, введите пароль!</div>
                     </div>
 
