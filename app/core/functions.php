@@ -23,7 +23,7 @@ function redirect($link)
 	die;
 }
 
-function message($msg)
+function message($msg = '',$erase = false)
 {
 	if(!empty($msg))
 	{
@@ -33,8 +33,11 @@ function message($msg)
 		if(!empty($_SESSION['message']))
 		{
 			$msg = $_SESSION['message'];
-			unset($_SESSION['message']);
-			return $_SESSION['message'];
+			if($erase){
+				unset($_SESSION['message']);
+			}
+			
+			return $msg;
 		}
 	}
 

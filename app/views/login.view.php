@@ -62,6 +62,10 @@
                     <h5 class="card-title text-center pb-0 fs-4">Вход в аккаунт</h5>
                     <p class="text-center small">Чтобы войти введите данные</p>
                   </div>
+                  
+                  <?php if(message()):?>
+                    <div class="alert alert-danger text-center"><?=message('', true)?></div>
+                  <?php endif;?>
 
                   <form class="row g-3 needs-validation" novalidate>
 
