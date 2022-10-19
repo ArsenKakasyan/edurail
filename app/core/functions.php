@@ -16,3 +16,27 @@ function set_value($key)
 
 	return '';
 }
+
+function redirect($link)
+{
+	header("Location: ". ROOT."/".$link);
+	die;
+}
+
+function message($msg)
+{
+	if(!empty($msg))
+	{
+		$_SESSION['message'] = $msg;
+	}else{
+		
+		if(!empty($_SESSION['message']))
+		{
+			return $_SESSION['message'];
+
+			unset($_SESSION['message']);
+		}
+	}
+
+	return false;
+}

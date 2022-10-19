@@ -11,11 +11,17 @@ class Signup extends Controller
 
 		$data['errors'] = [];
 		$user = new User(); 
-		if($user->validate($_POST))
+		#если метод запроса == post, тогда исполняется тело
+		if($_SERVER['REQUEST_METHOD'] == "POST")
 		{
-			$_POST['date'] = date("Y-m-d H:i:s");
-			$user->insert($_POST);
-
+			if($user->validate($_POST))
+			{
+				$_POST['date'] = date("Y-m-d H:i:s");
+				$user->insert($_POST);
+				
+				message("Ваш аккаунт был успешно создан");
+				redirect('login');
+			}
 		}
 
 		$data['errors']= $user->errors;
