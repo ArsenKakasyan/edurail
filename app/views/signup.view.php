@@ -80,6 +80,9 @@
                       <label for="yourEmail" class="form-label">Ваш Email</label>
                       <input value="<?= set_value('email')?>" type="email" name="email" class="form-control" id="yourEmail" required1>
                       <div class="invalid-feedback">Пожалуйста, введите действительный email адрес!</div>
+                      <?php if(!empty($errors['email'])):?>
+                      <div class="text-danger">Пожалуйста, введите действительный email адрес!</div>
+                    <?php endif;?>
                     </div>
 
                     <div class="col-12">
