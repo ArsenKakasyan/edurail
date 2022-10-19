@@ -8,8 +8,8 @@ class Signup extends Controller
 	
 	public function index()
 	{# инициализация класса signup для страницы login.view.php
-		show($_POST);
 
+		$data['errors'] = [];
 		$user = new User(); 
 		if($user->validate($_POST))
 		{
@@ -18,8 +18,7 @@ class Signup extends Controller
 
 		}
 
-		show($user->errors);
-
+		$data['errors']= $user->errors;
 		$data['title'] = "Signup";
 
 		$this->view('signup', $data);
