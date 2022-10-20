@@ -4,6 +4,8 @@ class App
 {
 	protected $controller = '_404';
 	protected $method = 'index';
+	#$page хранит значение текущей страницы
+	public static $page = '_404'; 
 
 #construcor with routing
 	function __construct()
@@ -15,6 +17,7 @@ class App
 		{ #если файл controller найден -> больше не 404
 			require $filename;
 			$this->controller = $arr[0];
+			self::$page = $arr[0];
 			unset($arr[0]);
 		}else{#если файл не найден то 404 оставлен
 			require "../app/controllers/".$this->controller.".php";

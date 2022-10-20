@@ -34,8 +34,15 @@
 
           <li><a href="<?=ROOT?>/about">О нас</a></li>
           <li><a href="<?=ROOT?>/contact">Контакты</a></li>
-          <li><a href="<?=ROOT?>/login">Войти</a></li>
-          <li><a href="<?=ROOT?>/signup">Регистрация</a></li>
+          <!-- Прячем вкладки из хедера когда auth -->
+          <?php if(!Auth::logged_in()):?>
+            <li><a href="<?=ROOT?>/login">Войти</a></li>
+            <li><a href="<?=ROOT?>/signup">Регистрация</a></li>
+          <?php else:?>
+            <li><a href="<?=ROOT?>/logout ">Выйти</a></li>
+          <?php endif;?>
+
+          
         </ul>
       </nav><!-- .navbar -->
 

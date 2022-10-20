@@ -22,7 +22,8 @@ class Login extends Controller
 			]);
 
 			if($row){
-				if($row->password === $_POST['password'])
+
+				if(password_verify($_POST['password'], $row->password))
 				{
 					//authenticate
 					Auth::authenticate($row);
@@ -31,7 +32,7 @@ class Login extends Controller
 				}
 			}
 
-			$data['errors']['email'] = "Wrong email or password";
+			$data['errors']['email'] = "Неправильный email или пароль";
 		}
 
 		$this->view('login', $data);
