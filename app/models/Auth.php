@@ -45,4 +45,17 @@ class Auth
 
         return false;
     }
+
+    #магический метод выводящий поля из бд
+    public static function __callStatic($funcname, $args)
+    {
+
+        $key = str_replace("get", "", strtolower($funcname));
+        if(!empty($_SESSION['USER_DATA']->$key))
+        {
+            return $_SESSION['USER_DATA']->$key;
+        }
+
+        return '';
+    } 
 }

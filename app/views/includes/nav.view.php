@@ -1,4 +1,4 @@
-  <main id="main">
+
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
@@ -39,12 +39,21 @@
             <li><a href="<?=ROOT?>/login">Войти</a></li>
             <li><a href="<?=ROOT?>/signup">Регистрация</a></li>
           <?php else:?>
-            <li><a href="<?=ROOT?>/logout ">Выйти</a></li>
-          <?php endif;?>
-
-          
+                <!-- username display -->
+            <li class="dropdown"><a href="category"><span>Hi, <?=Auth::getFirstname()?></span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+                <li><a href="<?=ROOT?>/admin">Дашборд</a></li>   
+                <li><a href="#">Аккаунт</a></li>   
+                <li><a href="#">Настройки</a></li>
+                <li><a href="<?=ROOT?>/logout">Выйти</a></li>
+              </ul>
+            </li>
+          <?php endif;?>     
         </ul>
-      </nav><!-- .navbar -->
+      </nav>
+      <!-- .navbar -->
+
+  
 
       <div class="position-relative">
         <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
@@ -68,3 +77,5 @@
     </div>
 
   </header><!-- End Header -->
+
+  <main id="main">
