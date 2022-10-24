@@ -277,8 +277,15 @@
         <a class="nav-link " href="<?=ROOT?>/admin">
           <i class="bi bi-grid"></i>
           <span>Админ-панель</span>
-        </a>
+        </a> 
       </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link " href="<?=ROOT?>/admin/courses">
+          <i class="bi bi-camera-reels"></i>
+          <span>Курсы</span>
+        </a>
+      </li><!-- End Dashboard Nav -->  
 
       <li class="nav-item">
         <a class="nav-link " href="<?=ROOT?>/admin/profile">
@@ -287,7 +294,17 @@
         </a>
       </li><!-- End Dashboard Nav --> 
 
+      <li class="nav-heading">Перейти на</li>
+
+      <li class="nav-item">
+        <a class="nav-link " href="<?=ROOT?>">
+          <i class="bi bi-globe"></i>
+          <span>Главная</span>
+        </a>
+      </li><!-- End Dashboard Nav --> 
 
     </ul>
 
   </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
