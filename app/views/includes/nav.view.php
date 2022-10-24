@@ -40,7 +40,7 @@
             <li><a href="<?=ROOT?>/signup">Регистрация</a></li>
           <?php else:?>
                 <!-- username display -->
-            <li class="dropdown"><a href="category"><span>Hi, <?=Auth::getFirstname()?></span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <li class="dropdown"><a href="category"><span>Привет, <?=Auth::getFirstname()?></span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
                 <li><a href="<?=ROOT?>/admin">Админ-панель</a></li>   
                 <li><a href="#">Аккаунт</a></li>   
