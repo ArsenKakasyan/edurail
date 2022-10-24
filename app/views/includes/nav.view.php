@@ -42,7 +42,7 @@
                 <!-- username display -->
             <li class="dropdown"><a href="category"><span>Hi, <?=Auth::getFirstname()?></span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-                <li><a href="<?=ROOT?>/admin">Дашборд</a></li>   
+                <li><a href="<?=ROOT?>/admin">Админ-панель</a></li>   
                 <li><a href="#">Аккаунт</a></li>   
                 <li><a href="#">Настройки</a></li>
                 <li><a href="<?=ROOT?>/logout">Выйти</a></li>
