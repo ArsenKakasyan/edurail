@@ -9,6 +9,12 @@ class Admin extends Controller
 	public function index()
 	{# инициализация класса бд и вызов ее методов
 
+		if(!Auth::logged_in())
+		{
+			message('Войдите для доступа к админ разделу');
+			redirect('login');
+		}
+
 		$data['title'] = "Dashboard";
 
 		$this->view('admin/dashboard', $data);
@@ -16,6 +22,12 @@ class Admin extends Controller
 
 	public function profile($id = null)
 	{# функция для профиля адимн-панели
+
+		if(!Auth::logged_in())
+		{
+			message('Пожалуйста, выполните вход для доступа к админ-панеле');
+			redirect('login');
+		}
 
 		$id = $id ?? Auth::getId();
 

@@ -45,6 +45,18 @@ function message($msg = '',$erase = false)
 }
 
 function esc($str)
-{
+{ #функция для защиты от js инъекций и прочей грязи в формах ввода
 	return nl2br(htmlspecialchars($str));
 }
+
+function str_to_url($url)
+{
+	#функция для очистки url от сторонних сивмолов
+	$url = str_replace("'", "", $url);
+	$url = preg_replace('~[^\\pL0-9_]+~u', '-', $url);
+	$url = trim($url, "-");
+	$url = iconv("utf-8", "us-ascii//TRANSLIT", $url);
+	$url = strtolower($url);
+	$url = preg_replace('~[^-a-z0-9_]+~', '', $url);
+	return $url;
+} 
