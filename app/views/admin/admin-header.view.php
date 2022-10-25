@@ -283,9 +283,30 @@
       <li class="nav-item">
         <a class="nav-link " href="<?=ROOT?>/admin/courses">
           <i class="bi bi-camera-reels"></i>
-          <span>Курсы</span>
+          <span>Мои курсы</span>
         </a>
       </li><!-- End Dashboard Nav -->  
+      
+      <li class="nav-item">
+        <a class="nav-link " href="<?=ROOT?>/admin/lessons">
+          <i class="bi bi-person-video3"></i>
+          <span>Посещаемые курсы</span>
+        </a>
+      </li><!-- End Dashboard Nav -->  
+
+      <li class="nav-item">
+        <a class="nav-link " href="<?=ROOT?>/admin/courses">
+          <i class="bi bi-hourglass-split"></i>
+          <span>История просмотра</span>
+        </a>
+      </li><!-- End Dashboard Nav -->  
+
+      <li class="nav-item">
+        <a class="nav-link " href="<?=ROOT?>/admin/sales">
+          <i class="bi bi-cash-coin"></i>
+          <span>Продажи</span>
+        </a>
+      </li><!-- End Dashboard Nav --> 
 
       <li class="nav-item">
         <a class="nav-link " href="<?=ROOT?>/admin/profile">
