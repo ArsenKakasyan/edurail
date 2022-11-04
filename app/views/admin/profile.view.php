@@ -62,7 +62,7 @@
 
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
               <h5 class="card-title">Обо мне</h5>
-              <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+              <p class="small fst-italic"><?=esc($row->about)?></p>
 
               <h5 class="card-title">Детали аккаунта</h5>
 
@@ -73,27 +73,27 @@
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Компания</div>
-                <div class="col-lg-9 col-md-8"></div>
+                <div class="col-lg-9 col-md-8"><?=esc($row->company)?></div>
               </div>
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Должность</div>
-                <div class="col-lg-9 col-md-8"></div>
+                <div class="col-lg-9 col-md-8"><?=esc($row->job)?></div>
               </div>
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Страна</div>
-                <div class="col-lg-9 col-md-8"></div>
+                <div class="col-lg-9 col-md-8"><?=esc($row->country)?></div>
               </div>
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Адрес</div>
-                <div class="col-lg-9 col-md-8"></div>
+                <div class="col-lg-9 col-md-8"><?=esc($row->address)?></div>
               </div>
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Телефон</div>
-                <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                <div class="col-lg-9 col-md-8"><?=esc($row->phone)?></div>
               </div>
 
               <div class="row">
@@ -106,71 +106,81 @@
             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
               <!-- Profile Edit Form -->
-              <form>
+              <form method="post">
                 <div class="row mb-3">
                   <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                   <div class="col-md-8 col-lg-9">
                     <img src="<?=ROOT?>/niceadmin/assets/img/profile-img.jpg" alt="Profile">
                     <div class="pt-2">
-                      <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                      <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                      <label class="btn btn-primary btn-sm" title="Загрузить новое фото">
+                        <i class="text-white bi bi-upload"></i>
+                        <input type="file" name="image" style="display: none;">
+                      </label>
+                      <a href="#" class="btn btn-danger btn-sm" title="Удалить фото"><i class="bi bi-trash"></i></a>
                     </div>
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                  <label for="firstname" class="col-md-4 col-lg-3 col-form-label">Имя</label>
+                  <div class="col-md-8 col-lg-9">                                                         <!-- первый аргумент из post, второй - значение по умолчанию -->
+                    <input name="firstname" type="text" class="form-control" id="firstname" value="<?=set_value('firstname', $row->firstname)?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                  <label for="lastname" class="col-md-4 col-lg-3 col-form-label">Фамилия</label>
                   <div class="col-md-8 col-lg-9">
-                    <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                    <input name="lastname" type="text" class="form-control" id="lastname" value="<?=set_value('firstname', $row->lastname)?>">
+                  </div>
+                </div>
+
+                <div class="row mb-3"> 
+                  <label for="about" class="col-md-4 col-lg-3 col-form-label">Обо мне</label>
+                  <div class="col-md-8 col-lg-9">
+                    <textarea name="about" class="form-control" id="about" style="height: 100px"><?=set_value('about', $row->about)?></textarea>
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
+                  <label for="company" class="col-md-4 col-lg-3 col-form-label">Компания</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
+                    <input name="company" type="text" class="form-control" id="company" value="<?=set_value('company', $row->company)?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
+                  <label for="Job" class="col-md-4 col-lg-3 col-form-label">Должность</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
+                    <input name="job" type="text" class="form-control" id="Job" value="<?=set_value('job', $row->job)?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                  <label for="Country" class="col-md-4 col-lg-3 col-form-label">Страна</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="country" type="text" class="form-control" id="Country" value="USA">
+                    <input name="country" type="text" class="form-control" id="Country" value="<?=set_value('country', $row->country)?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                  <label for="Address" class="col-md-4 col-lg-3 col-form-label">Адрес</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                    <input name="address" type="text" class="form-control" id="Address" value="<?=set_value('address', $row->address)?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                  <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Телефон</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                    <input name="phone" type="text" class="form-control" id="Phone" value="<?=set_value('phone', $row->phone)?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
+                    <input name="email" type="email" class="form-control" id="Email" value="<?=set_value('email', $row->email)?>">
                   </div>
                 </div>
 
@@ -203,7 +213,11 @@
                 </div>
 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                  <a href="<?=ROOT?>/admin">
+                    <button type="button" class="btn btn-primary">Назад</button>
+                  </a>
+                  
+                  <button type="submit" class="btn btn-danger float-end">Сохранить изменения</button>
                 </div>
               </form><!-- End Profile Edit Form -->
 
