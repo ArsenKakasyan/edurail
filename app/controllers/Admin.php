@@ -32,7 +32,14 @@ class Admin extends Controller
 		$id = $id ?? Auth::getId();
 
 		$user = new User();
-		$data['row'] = $user->first(['id'=>$id]);
+		$data['row'] = $row = $user->first(['id'=>$id]);
+
+		if($_SERVER['REQUEST_METHOD'] == "POST" && $row)
+		{
+			$user->update($id, $_POST);
+
+			redirect('admin/profile/'.$id);
+		}
 		$data['title'] = "Profile";
 
 		$this->view('admin/profile', $data);
