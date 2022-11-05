@@ -34,8 +34,33 @@ class Admin extends Controller
 		$user = new User();
 		$data['row'] = $row = $user->first(['id'=>$id]);
 
+		// post & update для редактирования аккаунта
 		if($_SERVER['REQUEST_METHOD'] == "POST" && $row)
 		{
+			$folder = "uploads/images/";
+			if(!file_exists($folder))
+			{
+				mkdir($folder, 0777, true);
+				file_put_contents($folder."index.php", "<?php //silence");
+				file_put_contents("uploads/index.php", "<?php //silence");
+			}
+			
+			$allowed = ['image/jpeg', 'image/png'];
+			if(!empty($_FILES['image']['name'])){
+				if($_FILES['image']['error'] == 0){
+					
+					if(in_array($_FILES['image']['type'], $allowed))
+					{
+						//все гуд
+						$destination = $folder.time().$_FILES['image']['name'];
+						move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+						$_POST['image'] = $destination;
+					}else{ $user->errors['image'] = "этот тип изображений не поддерживается";}
+
+				}else{ $user->errors['image'] = "ошибка загрузки изображения";}
+				
+			}
 			$user->update($id, $_POST);
 
 			redirect('admin/profile/'.$id);
