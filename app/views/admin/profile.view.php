@@ -24,11 +24,11 @@
           <h2><?=esc($row->firstname)?> <?=esc($row->lastname)?></h2>
           <h3><?=esc($row->role)?></h3>
           <div class="social-links mt-2">
-            <!-- Vkontakte, Telegram, HeadHunter, BigBlueButton -->
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            <!-- Vkontakte, Telegram, HeadHunter,BigBlueButton -->
+            <a href="#" class="vkontakte"><i class="fa fa-vk"></i></a>
+            <a href="#" class="telegram"><i class="bi bi-telegram"></i></a>
+            <a href="#" class="headhunter"><i class="fa fa-header"></i></a>
+            <a href="#" class="bigbluebutton"><i class="fa fa-bold"></i></a>
           </div>
         </div>
       </div>
@@ -189,32 +189,37 @@
                     <input name="email" type="email" class="form-control" id="Email" value="<?=set_value('email', $row->email)?>">
                   </div>
                 </div>
-
+                <!-- Twitter -->
                 <div class="row mb-3">
-                  <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
+                  <label for="Vkontakte" class="col-md-4 col-lg-3 col-form-label">Профиль VK</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
+                    <input name="vkontakte_link" type="text" class="form-control" id="Vkontakte" value="https://vk.com/#">
+                  </div>
+
+                  <?php if(!empty($errors['vkontakte_link'])):?>
+                    <small class="text-danger"><?=$errors['vkontakte_link']?></small>
+                  <?php endif;?>
+
+                </div>
+                      <!-- Facebook -->
+                <div class="row mb-3">
+                  <label for="Telegram" class="col-md-4 col-lg-3 col-form-label">Telegram</label>
+                  <div class="col-md-8 col-lg-9">
+                    <input name="telegram_link" type="text" class="form-control" id="Telegram" value="https://t.me/#">
                   </div>
                 </div>
-
+                      <!-- Insta -->
                 <div class="row mb-3">
-                  <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
+                  <label for="Headhunter" class="col-md-4 col-lg-3 col-form-label">Headhunter</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
+                    <input name="headhunter_link" type="text" class="form-control" id="Headhunter" value="https://hh.ru/#">
                   </div>
                 </div>
-
+                      <!-- Linkedin -->
                 <div class="row mb-3">
-                  <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
+                  <label for="Bigbluebutton" class="col-md-4 col-lg-3 col-form-label">BigBlueButton</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
+                    <input name="bigbluebutton_link" type="text" class="form-control" id="Linkedin" value="https://bigbluebutton.ru/#">
                   </div>
                 </div>
 

@@ -25,7 +25,11 @@ class User extends Model
 	'country',
 	'address',
 	'phone',
-	'slug'
+	'slug',
+	'vkontakte_link',
+	'telegram_link', 
+	'headhunter_link', 	
+	'bigbluebutton_link', 	
 
 	];
 
@@ -102,6 +106,35 @@ class User extends Model
 		if($this->where(['email'=>$data['email']]))
 		{
 			$this->errors['email'] = "Email уже существует ";
+		}
+		#check social medias
+		if(!empty($data['vkontakte_link']))
+		{
+			if(!filter_var($data['vkontakte_link'], FILTER_VALIDATE_URL))
+			{
+				$this->errors['vkontakte_link'] = "Некорректная ссылка VK";
+			}
+		}
+		if(!empty($data['telegram_link']))
+		{
+			if(!filter_var($data['telegram_link'], FILTER_VALIDATE_URL))
+			{
+				$this->errors['telegram_link'] = "Некорректная ссылка Telegram";
+			}
+		}
+		if(!empty($data['headhunter_link']))
+		{
+			if(!filter_var($data['headhunter_link'], FILTER_VALIDATE_URL))
+			{
+				$this->errors['headhunter_link'] = "Некорректная ссылка HeadHunter";
+			}
+		}
+		if(!empty($data['bigbluebutton_link']))
+		{
+			if(!filter_var($data['bigbluebutton_link'], FILTER_VALIDATE_URL))
+			{
+				$this->errors['bigbluebutton_link'] = "Некорректная ссылка BigBlueButton";
+			}
 		}
 
 		if(empty($this->errors)) #если все прошло хорошо

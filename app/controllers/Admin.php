@@ -45,33 +45,35 @@ class Admin extends Controller
 				file_put_contents($folder."index.php", "<?php //silence");
 				file_put_contents("uploads/index.php", "<?php //silence");
 			}
-			// создает папку при загрузке фото пользователя (если не создана) и сохраняте туда пикчу
-			$allowed = ['image/jpeg', 'image/png'];
-			if(!empty($_FILES['image']['name'])){
-				if($_FILES['image']['error'] == 0){
+			if($user->edit_validate($data))
+			{
+				// создает папку при загрузке фото пользователя (если не создана) и сохраняте туда пикчу
+				$allowed = ['image/jpeg', 'image/png'];
+				if(!empty($_FILES['image']['name'])){
+					if($_FILES['image']['error'] == 0){
+						
+						if(in_array($_FILES['image']['type'], $allowed))
+						{
+							//все гуд
+							$destination = $folder.time().$_FILES['image']['name'];
+							move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+							$_POST['image'] = $destination;
+							if(file_exists($row->image))
+							{	#проверка чтобы не забить images старыми картинками
+								unlink($row->image);
+							}
+						}else{ $user->errors['image'] = "Этот тип изображений не поддерживается";}
+
+					}else{ $user->errors['image'] = "Ошибка загрузки изображения";}
 					
-					if(in_array($_FILES['image']['type'], $allowed))
-					{
-						//все гуд
-						$destination = $folder.time().$_FILES['image']['name'];
-						move_uploaded_file($_FILES['image']['tmp_name'], $destination);
-
-						$_POST['image'] = $destination;
-						if(file_exists($row->image))
-						{	#проверка чтобы не забить images старыми картинками
-							unlink($row->image);
-						}
-					}else{ $user->errors['image'] = "Этот тип изображений не поддерживается";}
-
-				}else{ $user->errors['image'] = "Ошибка загрузки изображения";}
-				
+				}
+				$user->update($id, $_POST);
+				redirect('admin/profile/'.$id);
 			}
-			$user->update($id, $_POST);
-
-			redirect('admin/profile/'.$id);
 		}
 		$data['title'] = "Profile";
-
+		$data['errors'] = $user->errors;
 		$this->view('admin/profile', $data);
 	}
 
