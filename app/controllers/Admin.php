@@ -30,13 +30,14 @@ class Admin extends Controller
 		}
 
 		$id = $id ?? Auth::getId();
-
+		#row представлят data из бд
 		$user = new User();
 		$data['row'] = $row = $user->first(['id'=>$id]);
 
 		// post & update для редактирования аккаунта
 		if($_SERVER['REQUEST_METHOD'] == "POST" && $row)
 		{
+			
 			$folder = "uploads/images/";
 			if(!file_exists($folder))
 			{
@@ -44,7 +45,7 @@ class Admin extends Controller
 				file_put_contents($folder."index.php", "<?php //silence");
 				file_put_contents("uploads/index.php", "<?php //silence");
 			}
-			
+			// создает папку при загрузке фото пользователя (если не создана) и сохраняте туда пикчу
 			$allowed = ['image/jpeg', 'image/png'];
 			if(!empty($_FILES['image']['name'])){
 				if($_FILES['image']['error'] == 0){
@@ -56,9 +57,13 @@ class Admin extends Controller
 						move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 
 						$_POST['image'] = $destination;
-					}else{ $user->errors['image'] = "этот тип изображений не поддерживается";}
+						if(file_exists($row->image))
+						{	#проверка чтобы не забить images старыми картинками
+							unlink($row->image);
+						}
+					}else{ $user->errors['image'] = "Этот тип изображений не поддерживается";}
 
-				}else{ $user->errors['image'] = "ошибка загрузки изображения";}
+				}else{ $user->errors['image'] = "Ошибка загрузки изображения";}
 				
 			}
 			$user->update($id, $_POST);

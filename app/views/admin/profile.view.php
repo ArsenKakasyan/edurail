@@ -20,10 +20,11 @@
       <div class="card">
         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-          <img src="<?=ROOT?>/niceadmin/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+          <img src="<?=ROOT?>/<?=$row->image?>" alt="Profile" style="width:150px;max-width:150px;height:150px;object-fit: cover;" class="rounded-circle">
           <h2><?=esc($row->firstname)?> <?=esc($row->lastname)?></h2>
           <h3><?=esc($row->role)?></h3>
           <div class="social-links mt-2">
+            <!-- Vkontakte, Telegram, HeadHunter, BigBlueButton -->
             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
             <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
@@ -113,7 +114,7 @@
                   <div class="col-md-8 col-lg-9">
 
                   <div class="d-flex">
-                    <img class="js-image-preview" src="<?=ROOT?>/niceadmin/assets/img/profile-img.jpg" alt="Profile" style="width:200px;max-width:200px;height:200px;object-fit: cover;">
+                    <img class="js-image-preview" src="<?=ROOT?>/<?=$row->image?>" alt="Profile" style="width:200px;max-width:200px;height:200px;object-fit: cover;">
                     <div class="js-filename m-2 ">Выбранный файл: </div>
                   </div>
                     <div class="pt-2">

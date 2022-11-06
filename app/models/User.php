@@ -78,5 +78,38 @@ class User extends Model
 		return false;
 	}
 
+	public function edit_validate($data) 
+	{#проверяет все ли хорошо прошло во время обращения к бд при изменении данных аккаунта
+
+		$this->errors = [];
+
+		#валидации
+		if(empty($data['firstname']))
+		{
+			$this->errors['firstname'] = "Требуется имя";
+		}
+
+		if(empty($data['lastname']))
+		{
+			$this->errors['lastname'] = "Требуется фамилия";
+		}
+
+		#check email
+		if(!filter_var($data['email'],FILTER_VALIDATE_EMAIL))
+		{
+			$this->errors['email'] = "Email не является допустимым";
+		}else
+		if($this->where(['email'=>$data['email']]))
+		{
+			$this->errors['email'] = "Email уже существует ";
+		}
+
+		if(empty($this->errors)) #если все прошло хорошо
+		{
+			return true;
+		}
+		return false;
+	}
+
 	
 }
