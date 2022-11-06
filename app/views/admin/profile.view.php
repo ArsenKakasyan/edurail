@@ -132,13 +132,23 @@
                   <div class="col-md-8 col-lg-9">                                                         <!-- первый аргумент из post, второй - значение по умолчанию -->
                     <input name="firstname" type="text" class="form-control" id="firstname" value="<?=set_value('firstname', $row->firstname)?>">
                   </div>
+
+                  <?php if(!empty($errors['firstname'])):?>
+                    <small class="text-danger"><?=$errors['firstname']?></small>
+                  <?php endif;?>
+
                 </div>
 
                 <div class="row mb-3">
                   <label for="lastname" class="col-md-4 col-lg-3 col-form-label">Фамилия</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="lastname" type="text" class="form-control" id="lastname" value="<?=set_value('firstname', $row->lastname)?>">
+                    <input name="lastname" type="text" class="form-control" id="lastname" value="<?=set_value('lastname', $row->lastname)?>">
                   </div>
+
+                  <?php if(!empty($errors['lastname'])):?>
+                    <small class="text-danger"><?=$errors['lastname']?></small>
+                  <?php endif;?>
+
                 </div>
 
                 <div class="row mb-3"> 
@@ -181,6 +191,11 @@
                   <div class="col-md-8 col-lg-9">
                     <input name="phone" type="text" class="form-control" id="Phone" value="<?=set_value('phone', $row->phone)?>">
                   </div>
+
+                  <?php if(!empty($errors['phone'])):?>
+                    <small class="text-danger"><?=$errors['phone']?></small>
+                  <?php endif;?>
+
                 </div>
 
                 <div class="row mb-3">
@@ -188,12 +203,18 @@
                   <div class="col-md-8 col-lg-9">
                     <input name="email" type="email" class="form-control" id="Email" value="<?=set_value('email', $row->email)?>">
                   </div>
+
+                  <?php if(!empty($errors['email'])):?>
+                    <small class="text-danger"><?=$errors['email']?></small>
+                  <?php endif;?>
+
                 </div>
-                <!-- Twitter -->
+
+                      <!-- vk -->
                 <div class="row mb-3">
                   <label for="Vkontakte" class="col-md-4 col-lg-3 col-form-label">Профиль VK</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="vkontakte_link" type="text" class="form-control" id="Vkontakte" value="https://vk.com/#">
+                    <input name="vkontakte_link" type="text" class="form-control" id="Vkontakte" value="<?=set_value('vkontakte_link', $row->vkontakte_link)?>">
                   </div>
 
                   <?php if(!empty($errors['vkontakte_link'])):?>
@@ -201,26 +222,41 @@
                   <?php endif;?>
 
                 </div>
-                      <!-- Facebook -->
+                      <!-- tg -->
                 <div class="row mb-3">
                   <label for="Telegram" class="col-md-4 col-lg-3 col-form-label">Telegram</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="telegram_link" type="text" class="form-control" id="Telegram" value="https://t.me/#">
+                    <input name="telegram_link" type="text" class="form-control" id="Telegram" value="<?=set_value('telegram_link', $row->telegram_link)?>">
                   </div>
+
+                  <?php if(!empty($errors['telegram_link'])):?>
+                    <small class="text-danger"><?=$errors['telegram_link']?></small>
+                  <?php endif;?>
+
                 </div>
-                      <!-- Insta -->
+                      <!-- hh -->
                 <div class="row mb-3">
                   <label for="Headhunter" class="col-md-4 col-lg-3 col-form-label">Headhunter</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="headhunter_link" type="text" class="form-control" id="Headhunter" value="https://hh.ru/#">
+                    <input name="headhunter_link" type="text" class="form-control" id="Headhunter" value="<?=set_value('headhunter_link', $row->headhunter_link)?>">
                   </div>
+
+                  <?php if(!empty($errors['headhunter_link'])):?>
+                    <small class="text-danger"><?=$errors['headhunter_link']?></small>
+                  <?php endif;?>
+
                 </div>
-                      <!-- Linkedin -->
+                      <!-- bbb -->
                 <div class="row mb-3">
                   <label for="Bigbluebutton" class="col-md-4 col-lg-3 col-form-label">BigBlueButton</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="bigbluebutton_link" type="text" class="form-control" id="Linkedin" value="https://bigbluebutton.ru/#">
+                    <input name="bigbluebutton_link" type="text" class="form-control" id="Linkedin" value="<?=set_value('bigbluebutton_link', $row->bigbluebutton_link)?>">
                   </div>
+
+                  <?php if(!empty($errors['bigbluebutton_link'])):?>
+                    <small class="text-danger"><?=$errors['bigbluebutton_link']?></small>
+                  <?php endif;?>
+
                 </div>
 
                 <div class="text-center">

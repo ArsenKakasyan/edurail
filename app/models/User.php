@@ -43,11 +43,19 @@ class User extends Model
 		if(empty($data['firstname']))
 		{
 			$this->errors['firstname'] = "Требуется имя";
+		}else
+		if(!preg_match("/^[а-яА-ЯЁёa-zA-Z]+$/u", trim($data['firstname'])))
+		{
+			$this->errors['firstname'] = "Имя содержит только буквы";
 		}
 
 		if(empty($data['lastname']))
 		{
 			$this->errors['lastname'] = "Требуется фамилия";
+		}else
+		if(!preg_match("/^[а-яА-ЯЁёa-zA-Z]+$/u", trim($data['lastname'])))
+		{
+			$this->errors['lastname'] = "Фамилия содержит только буквы";
 		}
 
 		#check email
@@ -82,7 +90,7 @@ class User extends Model
 		return false;
 	}
 
-	public function edit_validate($data) 
+	public function edit_validate($data, $id) 
 	{#проверяет все ли хорошо прошло во время обращения к бд при изменении данных аккаунта
 
 		$this->errors = [];
@@ -91,11 +99,19 @@ class User extends Model
 		if(empty($data['firstname']))
 		{
 			$this->errors['firstname'] = "Требуется имя";
+		}else
+		if(!preg_match("/^[а-яА-ЯЁёa-zA-Z]+$/u", trim($data['firstname'])))
+		{
+			$this->errors['firstname'] = "Имя может содержать только буквы";
 		}
 
 		if(empty($data['lastname']))
 		{
 			$this->errors['lastname'] = "Требуется фамилия";
+		}else
+		if(!preg_match("/^[а-яА-ЯЁёa-zA-Z]+$/u", trim($data['lastname'])))
+		{
+			$this->errors['lastname'] = "Фамилия содержит только буквы";
 		}
 
 		#check email
@@ -103,9 +119,20 @@ class User extends Model
 		{
 			$this->errors['email'] = "Email не является допустимым";
 		}else
-		if($this->where(['email'=>$data['email']]))
+		if($results = $this->where(['email'=>$data['email']]))
 		{
-			$this->errors['email'] = "Email уже существует ";
+			foreach($results as $result){
+				if($id != $result->id)
+					$this->errors['email'] = "Email уже существует ";
+			}
+		}
+
+		if(!empty($data['phone']))
+		{
+			if(!preg_match("/^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/", trim($data['phone'])))
+			{
+				$this->errors['phone'] = "Некорректный номер телефона";
+			}
 		}
 		#check social medias
 		if(!empty($data['vkontakte_link']))
@@ -115,6 +142,7 @@ class User extends Model
 				$this->errors['vkontakte_link'] = "Некорректная ссылка VK";
 			}
 		}
+		
 		if(!empty($data['telegram_link']))
 		{
 			if(!filter_var($data['telegram_link'], FILTER_VALIDATE_URL))

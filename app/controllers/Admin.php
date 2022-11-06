@@ -45,7 +45,7 @@ class Admin extends Controller
 				file_put_contents($folder."index.php", "<?php //silence");
 				file_put_contents("uploads/index.php", "<?php //silence");
 			}
-			if($user->edit_validate($data))
+			if($user->edit_validate($_POST, $id))
 			{
 				// создает папку при загрузке фото пользователя (если не создана) и сохраняте туда пикчу
 				$allowed = ['image/jpeg', 'image/png'];
@@ -69,6 +69,7 @@ class Admin extends Controller
 					
 				}
 				$user->update($id, $_POST);
+				message("Профиль успешно сохранен");
 				redirect('admin/profile/'.$id);
 			}
 		}
