@@ -43,19 +43,19 @@
           <ul class="nav nav-tabs nav-tabs-bordered">
 
             <li class="nav-item">
-              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Обзор</button>
+              <button onclick="set_tab(this.getAttribute('data-bs-target'))" class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" id="profile-overview-tab">Обзор</button>
             </li>
 
             <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Редактировать</button>
+              <button onclick="set_tab(this.getAttribute('data-bs-target'))" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit" id="profile-edit-tab">Редактировать</button>
             </li>
 
             <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Настройки</button>
+              <button onclick="set_tab(this.getAttribute('data-bs-target'))" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings" id="profile-settings-tab">Настройки</button>
             </li>
 
             <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Изменить пароль</button>
+              <button onclick="set_tab(this.getAttribute('data-bs-target'))" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password" id="profile-change-password-tab">Изменить пароль</button>
             </li>
 
           </ul>
@@ -325,9 +325,27 @@
               </div>
 
 <?php endif;?>
-<!-- JS функция для отображения загружаемой картинки и ее имени -->
+<!-- JS скрипт  -->
 <script>
 
+  var tab = sessionStorage.getItem("tab") ? sessionStorage.getItem("tab"): "#profile-overview";
+ 
+  // функция сохранения&загрузки страницы где находится пользователь
+  function show_tab(tab_name)
+  {
+    var someTabTriggerEl = document.querySelector(tab_name +"-tab");
+    var tab = new bootstrap.Tab(someTabTriggerEl);
+
+    tab.show();
+
+  }
+  function set_tab(tab_name)
+  {
+    tab = tab_name;
+    sessionStorage.setItem("tab", tab_name);
+  }
+
+  // функция для отображения загружаемой картинки
   function load_image(file)
   {
     document.querySelector(".js-filename").innerHTML = "Выбранный Файл: " + file.name;
@@ -336,5 +354,11 @@
     
     document.querySelector(".js-image-preview").src = mylink;
   }
+
+  window.onload = function()
+  {
+    show_tab(tab);
+  }
+  
 </script>
 <?php $this->view('admin/admin-footer', $data) ?>
