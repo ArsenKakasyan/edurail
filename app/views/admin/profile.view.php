@@ -120,7 +120,7 @@
                     <div class="pt-2">
                       <label class="btn btn-primary btn-sm" title="Загрузить новое фото">
                         <i class="text-white bi bi-upload"></i>
-                        <input onchange="load_image(this.files[0])" type="file" name="image" style="display: none;">
+                        <input class="js-profile-image-input" onchange="load_image(this.files[0])" type="file" name="image" style="display: none;">
                       </label>
                       <a href="#" class="btn btn-danger btn-sm" title="Удалить фото"><i class="bi bi-trash"></i></a>
                     </div>
@@ -258,13 +258,16 @@
                   <?php endif;?>
 
                 </div>
-
+                
+                  <div class="js-prog progress my-4 hide">
+                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">Сохранение.. 50%</div>
+                  </div>
                 <div class="text-center">
                   <a href="<?=ROOT?>/admin">
                     <button type="button" class="btn btn-primary float-start">Назад</button>
                   </a>
                   
-                  <button type="submit" class="btn btn-danger float-end">Сохранить изменения</button>
+                  <button type="button" onclick="save_profile()" type="submit" class="btn btn-danger float-end">Сохранить изменения</button>
                 </div>
               </form><!-- End Profile Edit Form -->
 
@@ -395,6 +398,49 @@
   {
     show_tab(tab);
   }
-  
+
+  //upload functions
+  function save_profile()
+  {
+    var image = document.querySelector(".js-profile-image-input");
+    send_data({
+      pic: image.files[0]
+    });
+  }
+  // функция для progress бара
+  function send_data(obj)
+  {
+    var prog = document.querySelector(".js-prog");
+    prog.children[0].style.width = "0%";
+    prog.classList.remove("hide");
+
+    var myform = new FormData();
+    for(key in obj){
+      myform.append(key, obj[key]);
+    }
+    var ajax = new XMLHttpRequest();
+
+    ajax.addEventListener('readystatechange', function(){
+      if(ajax.readyState == 4){
+        if(ajax.status == 200){
+          //все гуд
+          alert("Загрузка завершена");
+        }else{
+          //ошибкао от сервера
+          alert("Возникла ошибка");
+        }
+      }
+    });
+    ajax.upload.addEventListener('progress', function(e){
+      var percent = Math.round((e.loaded / e.total) * 100);
+      prog.children[0].style.width = percent + "%";
+      prog.children[0].innerHTML = "Сохранение.. " + percent + "%";
+
+    });
+
+    ajax.open('post', '', true);
+    ajax.send(myform);
+
+  }
 </script>
 <?php $this->view('admin/admin-footer', $data) ?>

@@ -29,6 +29,7 @@
   <link href="<?=ROOT?>/niceadmin/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="<?=ROOT?>/niceadmin/assets/css/style.css" rel="stylesheet">
+  <link href="<?=ROOT?>/assets/css/custom.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.2.2
