@@ -35,7 +35,7 @@ class Admin extends Controller
 		$data['row'] = $row = $user->first(['id'=>$id]);
 
 		// post & update для редактирования аккаунта
-		if($_SERVER['REQUEST_METHOD'] == "POST" && $row)
+		if($_SERVER['REQUEST_METHOD'] == "POST" && $row && false)
 		{
 			
 			$folder = "uploads/images/";
