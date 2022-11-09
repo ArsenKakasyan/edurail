@@ -403,14 +403,24 @@
   function save_profile()
   {
     var image = document.querySelector(".js-profile-image-input");
+    var allowed = ['jpg','jpeg','png'];
+    
+    if(typeof image.files[0] == 'object'){
+      var ext = image.files[0].name.split(".").pop();
+    }  
+    if(!allowed.includes(ext.toLowerCase())){
+      alert("Разрешенные типы файлов для изображения профиля: " + allowed.toString(","));
+      return;
+    }
+
     send_data({
       pic: image.files[0]
     });
   }
   // функция для progress бара
-  function send_data(obj)
+  function send_data(obj, progbar = 'js-prog')
   {
-    var prog = document.querySelector(".js-prog");
+    var prog = document.querySelector("."+progbar);
     prog.children[0].style.width = "0%";
     prog.classList.remove("hide");
 
@@ -425,6 +435,7 @@
         if(ajax.status == 200){
           //все гуд
           alert("Загрузка завершена");
+          window.location.reload();
         }else{
           //ошибкао от сервера
           alert("Возникла ошибка");
