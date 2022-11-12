@@ -27,8 +27,8 @@
                   </tr>
                 </tbody>
               </table>
-              <!-- End Table with stripped rows -->
-
+              <!-- End Table with stripped rows  -->
+    
             </div>
           </div>
 
