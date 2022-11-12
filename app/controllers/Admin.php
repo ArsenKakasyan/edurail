@@ -20,6 +20,19 @@ class Admin extends Controller
 		$this->view('admin/dashboard', $data);
 	}
 
+	public function courses($id = null)
+	{
+		if(!Auth::logged_in())
+		{
+			message('Пожалуйста, выполните вход для доступа к админ-панеле');
+			redirect('login');
+		}
+
+		$data = [];
+
+		$this->view('admin/courses', $data);
+
+	}
 	public function profile($id = null)
 	{# функция для профиля адимн-панели
 

@@ -3,7 +3,7 @@
 /***
 * app info
 */
-define('APP_NAME', 'Fluent');
+define('APP_NAME', 'EduRails');
 define('APP_DESC', 'Study languages from your localhost');
 
 /***
@@ -19,7 +19,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('DBDRIVER', 'mysql');
 
 	//root path e.g localhost/
-	define('ROOT', 'http://localhost/fluent/public');
+	define('ROOT', 'http://localhost/edurails/public');
 }else
 {
 	//database config for live server
