@@ -122,6 +122,12 @@
                         <i class="text-white bi bi-upload"></i>
                         <input class="js-profile-image-input" onchange="load_image(this.files[0])" type="file" name="image" style="display: none;">
                       </label>
+
+                      <?php if(!empty($errors['image'])):?>
+                        <small class="js-error-image text-danger"><?=$errors['image']?></small>
+                      <?php endif;?>
+                      <small class="js-error-image text-danger"></small>
+
                       <a href="#" class="btn btn-danger btn-sm" title="Удалить фото"><i class="bi bi-trash"></i></a>
                     </div>
                   </div>
@@ -134,8 +140,9 @@
                   </div>
 
                   <?php if(!empty($errors['firstname'])):?>
-                    <small class="text-danger"><?=$errors['firstname']?></small>
+                    <small class="js-error-firstname text-danger"><?=$errors['firstname']?></small>
                   <?php endif;?>
+                  <small class="js-error-firstname text-danger"></small>
 
                 </div>
 
@@ -146,8 +153,9 @@
                   </div>
 
                   <?php if(!empty($errors['lastname'])):?>
-                    <small class="text-danger"><?=$errors['lastname']?></small>
+                    <small class="js-error-lastname text-danger"><?=$errors['lastname']?></small>
                   <?php endif;?>
+                  <small class="js-error-lastname text-danger"></small>
 
                 </div>
 
@@ -193,8 +201,9 @@
                   </div>
 
                   <?php if(!empty($errors['phone'])):?>
-                    <small class="text-danger"><?=$errors['phone']?></small>
+                    <small class="js-error-phone text-danger"><?=$errors['phone']?></small>
                   <?php endif;?>
+                  <small class="js-error-phone text-danger"></small>
 
                 </div>
 
@@ -205,8 +214,9 @@
                   </div>
 
                   <?php if(!empty($errors['email'])):?>
-                    <small class="text-danger"><?=$errors['email']?></small>
+                    <small class="js-error-email text-danger"><?=$errors['email']?></small>
                   <?php endif;?>
+                  <small class="js-error-email text-danger"></small>
 
                 </div>
 
@@ -218,8 +228,9 @@
                   </div>
 
                   <?php if(!empty($errors['vkontakte_link'])):?>
-                    <small class="text-danger"><?=$errors['vkontakte_link']?></small>
+                    <small class="js-error-vkontakte_link text-danger"><?=$errors['vkontakte_link']?></small>
                   <?php endif;?>
+                  <small class="js-error-vkontakte_link text-danger"></small>
 
                 </div>
                       <!-- tg -->
@@ -230,8 +241,9 @@
                   </div>
 
                   <?php if(!empty($errors['telegram_link'])):?>
-                    <small class="text-danger"><?=$errors['telegram_link']?></small>
+                    <small class="js-error-telegram_link text-danger"><?=$errors['telegram_link']?></small>
                   <?php endif;?>
+                  <small class="js-error-telegram_link text-danger"></small>
 
                 </div>
                       <!-- hh -->
@@ -242,8 +254,9 @@
                   </div>
 
                   <?php if(!empty($errors['headhunter_link'])):?>
-                    <small class="text-danger"><?=$errors['headhunter_link']?></small>
+                    <small class="js-error-headhunter_link text-danger"><?=$errors['headhunter_link']?></small>
                   <?php endif;?>
+                  <small class="js-error-headhunter_link text-danger"></small>
 
                 </div>
                       <!-- bbb -->
@@ -254,8 +267,9 @@
                   </div>
 
                   <?php if(!empty($errors['bigbluebutton_link'])):?>
-                    <small class="text-danger"><?=$errors['bigbluebutton_link']?></small>
+                    <small class="js-error-bigbluebutton_link text-danger"><?=$errors['bigbluebutton_link']?></small>
                   <?php endif;?>
+                  <small class="js-error-bigbluebutton_link text-danger"></small>
 
                 </div>
                 
@@ -430,7 +444,7 @@
       }  
 
       if(!allowed.includes(ext.toLowerCase())){
-        alert("Разрешенные типы файлов для изображения профиля: " + allowed.toString(","));
+        alert("Разрешенные типы файлов для изображения профиля: "+ allowed.toString(","));
         return;
       }
     }
@@ -445,7 +459,7 @@
 
     var myform = new FormData();
     for(key in obj){
-      myform.append(key, obj[key]);
+      myform.append(key,obj[key]);
     }
     var ajax = new XMLHttpRequest();
 
@@ -453,8 +467,9 @@
       if(ajax.readyState == 4){
         if(ajax.status == 200){
           //все гуд
-          alert("Загрузка завершена");
-          window.location.reload();
+          //alert("Загрузка завершена");
+          
+          handle_result(ajax.responseText); 
         }else{
           //ошибкао от сервера
           alert("Возникла ошибка");
@@ -471,6 +486,34 @@
     ajax.open('post', '', true);
     ajax.send(myform);
 
+  }
+
+  function handle_result(result)
+  {
+    var obj = JSON.parse(result);
+    if(typeof obj == 'object'){
+      //объект был создан
+      if(typeof obj.errors == 'object')
+      {
+        //у нас ошибки
+        display_errors(obj.errors);
+        alert("Пожалуйста введите корректные данные");
+      
+      }else{
+        //сохранено
+        alert("Данные успешно сохранены!");
+        window.location.reload();
+      }
+    }
+  }
+  
+  function display_errors(errors){
+
+    for(key in errors){
+      
+      console.log(".js-error-"+key);
+      document.querySelector(".js-error-"+key).innerHTML = errors[key];
+    }
   }
 </script>
 <?php $this->view('admin/admin-footer', $data) ?>

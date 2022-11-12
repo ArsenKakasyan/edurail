@@ -35,7 +35,7 @@ class Admin extends Controller
 		$data['row'] = $row = $user->first(['id'=>$id]);
 
 		// post & update для редактирования аккаунта
-		if($_SERVER['REQUEST_METHOD'] == "POST" && $row && false)
+		if($_SERVER['REQUEST_METHOD'] == "POST" && $row)
 		{
 			
 			$folder = "uploads/images/";
@@ -65,15 +65,27 @@ class Admin extends Controller
 							{	#проверка чтобы не забить images старыми картинками
 								unlink($row->image);
 							}
-						}else{ $user->errors['image'] = "Этот тип изображений не поддерживается";}
+						}else{ 
+							$user->errors['image'] = "Этот тип изображений не поддерживается";
+						}
 
-					}else{ $user->errors['image'] = "Ошибка загрузки изображения";}
-					
+					}else{ 
+						$user->errors['image'] = "Ошибка загрузки изображения";
+					}	
 				}
 				$user->update($id, $_POST);
-				message("Профиль успешно сохранен");
-				redirect('admin/profile/'.$id);
+				//message("Профиль успешно сохранен");
+				//redirect('admin/profile/'.$id);
 			}
+			
+			if(empty($user->errors)){
+				$arr['message'] = "Профиль успешно сохранен";
+			}else{
+				$arr['message'] = "Пожалуйста исправьте некорректные данные";
+				$arr['errors'] = $user->errors;
+			}
+			echo json_encode($arr);
+			die;
 		}
 		$data['title'] = "Profile";
 		$data['errors'] = $user->errors;
