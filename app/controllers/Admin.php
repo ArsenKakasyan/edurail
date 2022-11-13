@@ -34,8 +34,31 @@ class Admin extends Controller
 
 		if($action == 'add')
 		{
-			$category = new Category();
+			$category = new Category_model();
+			$course = new Course_model();
 			$data['categories'] = $category->findAll('asc');
+
+			if($_SERVER['REQUEST_METHOD'] == "POST")
+			{
+				if($course->validate($_POST))
+				{
+					$user_id = Auth::getId();
+					$_POST['date'] = date("Y-m-d H:i:s");
+					$_POST['user_id'] = $user_id;
+
+					$course->insert($_POST);
+					
+					$row = $course->first(['user_id'=>$user_id, 'published'=>0]);
+					message("Ваш курс был успешно создан.");
+
+					if($row){
+						redirect('admin/courses/edit/'.$row->id);
+					}else{
+						redirect('admin/courses/');
+					}
+				}
+				$data['errors'] = $course->errors;
+			}
 		}
 		$this->view('admin/courses', $data);
 

@@ -7,15 +7,19 @@
         <h5 class="card-title">Новый курс</h5>
 
         <!--  No Labels Form   -->
-        <form class="row g-3">
+        <form method="post" class="row g-3">
         <div class="col-md-12">
-            <input type="text" class="form-control" placeholder="Название курса">
+            <input value="<?=set_value('title')?>" name="title" type="text" class="form-control <?=!empty($errors['title']) ? 'border-danger':'';?>" placeholder="Название курса">
+
+            <?php if(!empty($errors['title'])):?>
+                <small class="text-danger"><?=$errors['title']?></small>
+            <?php endif;?>
+
         </div>
-        
-        
        
+
         <div class="col-md-12">
-            <select id="inputState" class="form-select">
+            <select name="category_id" id="inputState" class="form-select" <?=!empty($errors['category_id']) ? 'border-danger':'';?>">
 
                 <option value="" selected="">Категория курса...</option>
                 <?php if(!empty($categories)):?>
@@ -25,6 +29,11 @@
                 <?php endif;?>
                  
             </select>
+
+            <?php if(!empty($errors['category_id'])):?>
+                <small class="text-danger"><?=$errors['category_id']?></small>
+            <?php endif;?>
+
         </div>
         
         <div class="text-center">

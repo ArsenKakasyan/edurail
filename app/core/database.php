@@ -96,6 +96,8 @@ class Database
             `tags` varchar(2048) DEFAULT NULL,
             `congratulations_message` varchar(2048) DEFAULT NULL,
             `welcome_message` varchar(2048) DEFAULT NULL,
+            `approved` tinyint(1) NOT NULL DEFAULT 0,
+            `published` tinyint(1) NOT NULL DEFAULT 0,
             PRIMARY KEY (`id`),
             KEY `title` (`title`),
             KEY `user_id` (`user_id`),
@@ -105,7 +107,9 @@ class Database
             KEY `language_id` (`language_id`),
             KEY `price_id` (`price_id`),
             KEY `primary_subject` (`primary_subject`),
-            KEY `date` (`date`)
+            KEY `date` (`date`),
+            KEY `approved` (`approved`),
+            KEY `published` (`published`)
            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
         ";
 

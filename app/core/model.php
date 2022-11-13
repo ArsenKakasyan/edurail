@@ -97,7 +97,7 @@ class Model extends Database
 		return false;
 	}
 
-	public function first($data)
+	public function first($data, $order = 'desc')
 	{
 		#функция вытаскивает  первый объект из массива
 		$keys = array_keys($data);
@@ -109,7 +109,7 @@ class Model extends Database
 				}		
 
 		$query = trim($query, "&& ");
-		$query .= " order by id desc limit 1";
+		$query .= " order by id $order limit 1";
 
 		$res = $this->query($query, $data);
 
