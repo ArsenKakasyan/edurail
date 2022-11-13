@@ -33,7 +33,7 @@
             <button type="button" class="btn btn-secondary">Отмена</button>
             </a>
         </div>
-        </form><!-- End No Labels Form -->
+        </form><!-- End No Labels Form   -->
 
     </div>
 </div>
