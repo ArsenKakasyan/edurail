@@ -278,10 +278,10 @@
                   </div>
                 <div class="text-center">
                   <a href="<?=ROOT?>/admin">
-                    <button type="button" class="btn btn-primary float-start">Назад</button>
+                    <button type="button" class="btn btn-secondary float-start">Назад</button>
                   </a>
                   
-                  <button type="button" onclick="save_profile(event)" type="submit" class="btn btn-danger float-end">Сохранить изменения</button>
+                  <button type="button" onclick="save_profile(event)" type="submit" class="btn btn-primary float-end">Сохранить изменения</button>
                 </div>
               </form><!-- End Profile Edit Form -->
 

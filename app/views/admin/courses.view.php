@@ -17,21 +17,13 @@
         <div class="col-md-12">
             <select id="inputState" class="form-select">
 
-                <option selected="">Категория курса...</option>
-                    <option value="">Разработка</option> 
-                    <option value="">Бизнес</option> 
-                    <option value="">Финансы & бухгалтерский учет</option> 
-                    <option value="">ИТ & ПО</option> 
-                    <option value="">Офисное программное обеспечение</option> 
-                    <option value="">Личностный рост</option> 
-                    <option value="">Дизайн</option> 
-                    <option value="">Маркетинг</option> 
-                    <option value="">Стиль жизни</option> 
-                    <option value="">Фотография & видео</option> 
-                    <option value="">Здоровье & фитнес</option> 
-                    <option value="">Музыка</option> 
-                    <option value="">Учебные & академические дисциплины</option> 
-                    <option value="">Я пока не знаю</option> 
+                <option value="" selected="">Категория курса...</option>
+                <?php if(!empty($categories)):?>
+                    <?php foreach($categories as $cat):?>
+                        <option value="<?=$cat->id?>"><?=esc($cat->category)?></option> 
+                    <?php endforeach;?>
+                <?php endif;?>
+                 
             </select>
         </div>
         

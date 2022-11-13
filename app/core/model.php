@@ -82,6 +82,21 @@ class Model extends Database
 		return false;
 	}
 
+	public function findAll($order = 'desc')
+	{
+
+		$query = "select * from ".$this->table." order by id $order ";
+
+		$res = $this->query($query);
+
+		if(is_array($res))
+		{
+			return $res;
+		} 
+
+		return false;
+	}
+
 	public function first($data)
 	{
 		#функция вытаскивает  первый объект из массива

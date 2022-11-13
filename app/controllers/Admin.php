@@ -21,7 +21,7 @@ class Admin extends Controller
 	}
 
 	public function courses($action = null,$id = null)
-	{
+	{ #функция для взаимодействия с курсами
 		if(!Auth::logged_in())
 		{
 			message('Пожалуйста, выполните вход для доступа к админ-панеле');
@@ -32,6 +32,11 @@ class Admin extends Controller
 		$data['action'] = $action;
 		$data['id'] = $id;
 
+		if($action == 'add')
+		{
+			$category = new Category();
+			$data['categories'] = $category->findAll('asc');
+		}
 		$this->view('admin/courses', $data);
 
 	}
