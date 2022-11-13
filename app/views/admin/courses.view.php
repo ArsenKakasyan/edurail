@@ -6,7 +6,7 @@
     <div class="card-body">
         <h5 class="card-title">Новый курс</h5>
 
-        <!--  No Labels Form -->
+        <!--  No Labels Form   -->
         <form class="row g-3">
         <div class="col-md-12">
             <input type="text" class="form-control" placeholder="Название курса">
