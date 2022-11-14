@@ -66,6 +66,7 @@
             <tr>
             <th scope="col">#</th>
             <th scope="col">Название</th>
+            <th scope="col">Преподаватель</th>
             <th scope="col">Категория</th>
             <th scope="col">Цена</th>
             <th scope="col">Основной предмет</th>
@@ -81,7 +82,8 @@
                     <tr>
                     <th scope="row"><?=$row->id?></th>
                     <td><?=esc($row->title)?></td>
-                    <td><?=esc($row->category_id)?></td>
+                    <td><?=esc($row->user_row->name ?? 'Неизвестный')?></td>
+                    <td><?=esc($row->category_row->category ?? 'Неизвестный')?></td>
                     <td><?=esc($row->price_id)?></td>
                     <td><?=esc($row->primary_subject)?></td>
                     <td><?=get_date($row->date)?></td>
