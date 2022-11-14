@@ -16,6 +16,15 @@
             <?php endif;?>
 
         </div>
+
+        <div class="col-md-12">
+            <input value="<?=set_value('primary_subject')?>" name="primary_subject" type="text" class="form-control <?=!empty($errors['primary_subject']) ? 'border-danger':'';?>" placeholder="Основной предмет e.g. Фотография">
+
+            <?php if(!empty($errors['primary_subject'])):?>
+                <small class="text-danger"><?=$errors['primary_subject']?></small>
+            <?php endif;?>
+
+        </div>
        
 
         <div class="col-md-12">
@@ -84,7 +93,7 @@
                     <td><?=esc($row->title)?></td>
                     <td><?=esc($row->user_row->name ?? 'Неизвестный')?></td>
                     <td><?=esc($row->category_row->category ?? 'Неизвестный')?></td>
-                    <td><?=esc($row->price_id)?></td>
+                    <td><?=esc($row->price_row->name ?? 'Неизвестный')?></td>
                     <td><?=esc($row->primary_subject)?></td>
                     <td><?=get_date($row->date)?></td>
                     <td>

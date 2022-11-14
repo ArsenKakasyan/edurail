@@ -59,6 +59,15 @@ class Course_model extends Model
 			$this->errors['title'] = "Название курса содержит только буквы, пробелы и [-_&]";
 		}
 
+		if(empty($data['primary_subject']))
+		{
+			$this->errors['primary_subject'] = "Требуется основной предмет";
+		}else
+		if(!preg_match("/^[а-яА-ЯЁёa-zA-Z \-\_\&]+$/u", trim($data['primary_subject'])))
+		{
+			$this->errors['primary_subject'] = "Название предмета содержит только буквы, пробелы и [-_&]";
+		}
+
 		if(empty($data['category_id']))
 		{
 			$this->errors['category_id'] = "Выберите категорию";
@@ -193,10 +202,26 @@ class Course_model extends Model
 				}
 			}
 		}
+
 		return $rows;
 	}
 	protected function get_price($rows)
 	{
+		$db = new Database();
+		if(!empty($rows[0]->price_id))
+		{	#проходим через каждую строку в таблице 1
+			foreach($rows as $key => $row){
+
+				$query = "select * from prices where id = :id limit 1"; #получаем действительную строку из таблицы цен 3
+				$price = $db->query($query,['id'=>$row->price_id]); # проверяем id цены 2
+				if(!empty($price)){
+					# и все это мракобесие чтобы вывести вместо id категорию цены 4
+					$price[0]->name = $price[0]->name . ' (₽'.$price[0]->price .')';
+					$rows[$key]->price_row = $price[0];  
+				}
+			}
+		}
+
 		return $rows;
 	}
 	protected function get_level($rows)

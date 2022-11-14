@@ -44,7 +44,7 @@ class Database
         //users table
         $query = "
 
-        CREATE TABLE `users` (
+        CREATE TABLE IF NOT EXISTS `users` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `email` varchar(100) NOT NULL,
             `firstname` varchar(30) NOT NULL,
@@ -75,10 +75,34 @@ class Database
 
         $this->query($query);
 
+         //prices table
+         $query = "
+
+         CREATE TABLE IF NOT EXISTS `prices` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(60) NOT NULL,
+            `price` decimal(10,0) NOT NULL,
+            `disabled` tinyint(1) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`id`),
+            KEY `price` (`price`),
+            KEY `disabled` (`disabled`),
+            KEY `name` (`name`)
+           ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4
+         ";
+
+         $this->query($query);
+
+         // insert into prices table
+         $query = "
+            INSERT INTO `prices` (`id`, `name`, `price`, `disabled`) VALUES (1, 'Бесплатно', '0', 0);
+         ";
+         
+         $this->query($query);
+
         //courses table
         $query = "
 
-        CREATE TABLE `courses` (
+        CREATE TABLE IF NOT EXISTS `courses` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `title` varchar(100) NOT NULL,
             `description` text DEFAULT NULL,
