@@ -2,12 +2,23 @@
 
 /**
  * Courses model (модель - простой класс позволяющий подключиться к базе данных)
- * 
+ * все функции находящиеся в этом модуле используются ТОЛЬКО в бизнес логике КУРСОВ!
  */
 class Course_model extends Model
 {
 	public $errors = [];
 	protected $table = "courses";
+
+	protected $afterSelect = [
+		#массив функций которые запускаются после select
+		'get_category',
+		'get_sub_category',
+		'get_user',
+		'get_price',
+		'get_level',
+		'get_language',
+	];
+	protected $beforeUpdate = [];
 
 	protected $allowedColumns = [
 		#ключи массива разрешенных столбцов
@@ -140,6 +151,32 @@ class Course_model extends Model
 			return true;
 		}
 		return false;
+	}
+
+	// функции которые запускаются после select
+	protected function get_category($rows)
+	{
+		return $rows;
+	}
+	protected function get_sub_category($rows)
+	{
+		return $rows;
+	}
+	protected function get_user($rows)
+	{
+		return $rows;
+	}
+	protected function get_price($rows)
+	{
+		return $rows;
+	}
+	protected function get_level($rows)
+	{
+		return $rows;
+	}
+	protected function get_language($rows)
+	{
+		return $rows;
 	}
 
 	

@@ -79,7 +79,7 @@
 
                 <?php foreach($rows as $row):?>
                     <tr>
-                    <th scope="row">1</th>
+                    <th scope="row"><?=$row->id?></th>
                     <td><?=esc($row->title)?></td>
                     <td><?=esc($row->category_id)?></td>
                     <td><?=esc($row->price_id)?></td>

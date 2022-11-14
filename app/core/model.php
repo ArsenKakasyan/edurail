@@ -1,7 +1,7 @@
 <?php
 
 /**
- * main model class (как и controller, только для моделей)
+ * main model class (как и controller, только для моделей) с функциями для чтения данных из бд
  * 
  * в соответствии с шаблоном MVC каждая таблица будет иметь модель, в свою очередь каждая модель должна иметь возможноть 
  * использовать общий функционал из класса Model
@@ -77,6 +77,15 @@ class Model extends Database
 
 		if(is_array($res))
 		{
+			//вызываем afterSelect функции из Course_model
+			if(property_exists($this, 'afterSelect'))
+			{
+				foreach($this->afterSelect as $func){
+
+					$res = $this->$func($res);
+				}
+			}
+
 			return $res;
 		} 
 
@@ -92,6 +101,14 @@ class Model extends Database
 
 		if(is_array($res))
 		{
+			if(property_exists($this, 'afterSelect'))
+			{
+				foreach($this->afterSelect as $func){
+
+					$res = $this->$func($res);
+				}
+			}
+			
 			return $res;
 		} 
 
@@ -116,6 +133,16 @@ class Model extends Database
 
 		if(is_array($res))
 		{
+			
+			//вызываем afterSelect функции из Course_model
+			if(property_exists($this, 'afterSelect'))
+			{
+				foreach($this->afterSelect as $func){
+
+					$res = $this->$func($res);
+				}
+			}
+
 			return $res[0];
 		} 
 
