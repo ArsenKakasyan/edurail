@@ -60,7 +60,7 @@ class Model extends Database
 		$this->query($query, $data); 
 	}
 
-	public function where($data)
+	public function where($data, $order = 'desc')
 	{
 		 
 		$keys = array_keys($data);
@@ -72,6 +72,7 @@ class Model extends Database
 				}		
 
 		$query = trim($query, "&& ");
+		$query .= " order by id $order ";
 		$res = $this->query($query, $data);
 
 		if(is_array($res))

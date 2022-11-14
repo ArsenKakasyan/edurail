@@ -21,6 +21,32 @@ function set_value($key, $default = '')
 	return '';
 }
 
+function get_date($date){
+	$intlFormatter = new IntlDateFormatter('ru_RU', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
+	$intlFormatter->setPattern('dd MMMM, yyyy');
+
+	return $intlFormatter->format(strtotime($date));
+}
+
+function set_select($key, $value, $default = '')
+{ #хранит значение выбранной категории курса
+	if(!empty($_POST[$key]))
+	{
+		if($value == $_POST[$key]){
+			return ' selected ';
+		}
+	}else 
+	if(!empty($default))
+	{
+		if($value == $default){
+			return ' selected ';
+		}
+		return $default;
+	}
+
+	return '';
+}
+
 function redirect($link)
 {
 	header("Location: ". ROOT."/".$link);

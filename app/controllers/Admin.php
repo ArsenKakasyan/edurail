@@ -27,6 +27,8 @@ class Admin extends Controller
 			message('Пожалуйста, выполните вход для доступа к админ-панеле');
 			redirect('login');
 		}
+		$user_id = Auth::getId();
+		$course = new Course_model();
 
 		$data = [];
 		$data['action'] = $action;
@@ -35,14 +37,14 @@ class Admin extends Controller
 		if($action == 'add')
 		{
 			$category = new Category_model();
-			$course = new Course_model();
+			
 			$data['categories'] = $category->findAll('asc');
 
 			if($_SERVER['REQUEST_METHOD'] == "POST")
 			{
 				if($course->validate($_POST))
 				{
-					$user_id = Auth::getId();
+					
 					$_POST['date'] = date("Y-m-d H:i:s");
 					$_POST['user_id'] = $user_id;
 
@@ -59,7 +61,11 @@ class Admin extends Controller
 				}
 				$data['errors'] = $course->errors;
 			}
+		}else{
+			//courses view
+			$data['rows'] = $course->where(['user_id'=>$user_id]);
 		}
+
 		$this->view('admin/courses', $data);
 
 	}
