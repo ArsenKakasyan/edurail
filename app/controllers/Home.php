@@ -7,7 +7,7 @@ class Home extends Controller
 {
 	
 	public function index()
-	{# инициализация класса бд и вызов ее методов
+	{# инициализация класса Home для страницы home.view.php
 
 		$data['title'] = "Home";
 

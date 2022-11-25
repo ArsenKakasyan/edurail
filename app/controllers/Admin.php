@@ -7,7 +7,7 @@ class Admin extends Controller
 {
 	
 	public function index()
-	{# инициализация класса бд и вызов ее методов
+	{# инициализация класса Admin для страницы views/admin
 
 		if(!Auth::logged_in())
 		{
@@ -62,7 +62,14 @@ class Admin extends Controller
 				}
 				$data['errors'] = $course->errors;
 			}
-		}else{
+		}
+		elseif($action == 'edit')
+		{
+			//get course info
+			$data['row'] = $course->first(['user_id'=>$user_id, 'id'=>$id]);
+			
+		}else
+		{
 			//courses view
 			$data['rows'] = $course->where(['user_id'=>$user_id]);
 

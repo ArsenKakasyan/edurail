@@ -7,7 +7,7 @@ class Signup extends Controller
 {
 	
 	public function index()
-	{# инициализация класса signup для страницы login.view.php
+	{# инициализация класса signup для страницы signup.view.php
 
 		$data['errors'] = [];
 		$user = new User(); 

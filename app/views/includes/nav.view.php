@@ -7,8 +7,10 @@
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="<?=ROOT?>/zenblog/assets/img/logo.png" alt=""> -->
         <h1><?=APP_NAME?></h1>
+        
       </a>
 
+      
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="<?=ROOT?>">Blog</a></li>

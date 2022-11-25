@@ -110,7 +110,7 @@
               <form method="post" enctype="multipart/form-data">
                 
                 <div class="row mb-3">
-                  <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                  <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Фото</label>
                   <div class="col-md-8 col-lg-9">
 
                   <div class="d-flex">
@@ -450,6 +450,7 @@
     }
     send_data(obj);
   }
+
   // функция для progress бара
   function send_data(obj, progbar = 'js-prog')
   {
