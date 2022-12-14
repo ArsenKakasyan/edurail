@@ -190,29 +190,20 @@
         <?php endif;?>
         </table>
         <!-- End Table with stripped rows  -->
-
     </div>
 </div>
 
 <?php endif;?>
 
 <script>
-    var tab = sessionStorage.getItem("tab") ? sessionStorage.getItem("tab"): "#intended-learners";
+    var tab = sessionStorage.getItem("tab") ? sessionStorage.getItem("tab"): "intended-learners";
     var dirty = false; // переменная для отслеживания изменений на вкладке редактирования курса
 
     // функция сохранения&загрузки страницы где находится пользователь
     function show_tab(tab_name)
     {
-    var someTabTriggerEl = document.querySelector(tab_name +"-tab");
-    var tab = new bootstrap.Tab(someTabTriggerEl);
-
-    tab.show();
-    disable_save_button(false);
-
-    }
-    function set_tab(tab_name, div)
-    {
-        var children = div.parentNode.children;
+    var div = document.querySelector("#"+tab_name);
+    var children = div.parentNode.children;
         for(var i = 0; i < children.length; i++)
         {
             children[i].classList.remove("active-tab");
@@ -220,40 +211,30 @@
 
         div.classList.add("active-tab")
 
-        children = document.querySelector("#"+tab_name+"-div").parentNode.children;
-         
-        for(var i = 0; i < children.length; i++)
-        {
-            children[i].classList.add("hide");
-        }
-
-        document.querySelector("#"+tab_name+"-div").classList.remove("hide");
-
-        return;
-        tab = tab_name;
-        sessionStorage.setItem("tab", tab_name);
+        var content = tab_name + "<input />";
+        document.querySelector("#tabs-content").innerHTML = content;
         
+        disable_save_button(false);
+
+    } 
+    // функция для переключения вкладок
+    function set_tab(tab_name)
+    {  
         if(dirty)
         {
             //попросить пользователя сохранить изменения при переходе на другую вкладку
             if(!confirm("Вы не сохранили изменения. Продолжить?"))
             { 
-
-                tab = dirty;
-                sessionStorage.setItem("tab", dirty);
-                setTimeout(function(){
-
-                    show_tab(dirty);
-                    disable_save_button(true);
-                },10);
+                return;
             }
-            else
-            {
-                dirty = false;
-                disable_save_button(false);
-            }
-        }
+        }  
+        tab = tab_name;
+        sessionStorage.setItem("tab", tab_name);
+
+        dirty = false;
+        show_tab(tab_name);
     }
+
     // функция отслеживания изменений на вкладке редактирования курса
     function something_changed(e)
     {
