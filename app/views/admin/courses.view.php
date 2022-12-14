@@ -65,7 +65,7 @@
         <?php if(!empty($row)):?>
 
             <div class="float-end">
-                <button class="btn btn-primary">Сохранить</button>
+                <button class="js-save-button btn btn-primary disabled">Сохранить</button>
                 <a href="<?=ROOT?>/admin/courses">
                     <button class="btn btn-secondary">Назад</button>
                 </a>
@@ -91,21 +91,27 @@
                     <button onclick="set_tab(this.getAttribute('data-bs-target'))" class="nav-link w-100" id="course-messages-tab" data-bs-toggle="tab" data-bs-target="#course-messages" type="button" role="tab" aria-controls="contact" aria-selected="false">Сообщения курса</button>
                 </li>
             </ul>
-            <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+            <div oninput="something_changed(event)" class="tab-content pt-2" id="borderedTabJustifiedContent">
+
                 <div class="tab-pane fade show active" id="intended-learners" role="tabpanel" aria-labelledby="intended-learners">
                     1Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+                    <input type="text" name="">
                 </div>
                 <div class="tab-pane fade" id="curriculum" role="tabpanel" aria-labelledby="curriculum">
                     2Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+                    <input type="text" name="">
                 </div>
                 <div class="tab-pane fade" id="course-landing-page" role="tabpanel" aria-labelledby="course-landing-page">
                     3Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+                    <input type="text" name="">
                 </div>
                 <div class="tab-pane fade" id="promotions" role="tabpanel" aria-labelledby="promotions">
                     4Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+                    <input type="text" name="">
                 </div>
                 <div class="tab-pane fade" id="course-messages" role="tabpanel" aria-labelledby="course-messages">
                     5Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+                    <input type="text" name="">
                 </div>
             </div><!-- End Bordered Tabs Justified -->
 
@@ -165,7 +171,6 @@
                         </a>
                         <a href="<?=ROOT?>/admin/courses/delete/<?=$row->id?>">
                             <i class="bi bi-trash-fill text-danger"></i>
-
                         </a>
                     </td> 
                     </tr>
@@ -185,7 +190,8 @@
 
 <script>
     var tab = sessionStorage.getItem("tab") ? sessionStorage.getItem("tab"): "#intended-learners";
-    
+    var dirty = false; // переменная для отслеживания изменений на вкладке редактирования курса
+
     // функция сохранения&загрузки страницы где находится пользователь
     function show_tab(tab_name)
     {
@@ -193,12 +199,49 @@
     var tab = new bootstrap.Tab(someTabTriggerEl);
 
     tab.show();
+    disable_save_button(false);
 
     }
     function set_tab(tab_name)
     {
-    tab = tab_name;
-    sessionStorage.setItem("tab", tab_name);
+        tab = tab_name;
+        sessionStorage.setItem("tab", tab_name);
+        
+        if(dirty)
+        {
+            //попросить пользователя сохранить изменения при переходе на другую вкладку
+            if(!confirm("Вы не сохранили изменения. Продолжить?"))
+            { 
+
+                tab = dirty;
+                sessionStorage.setItem("tab", dirty);
+                setTimeout(function(){
+
+                    show_tab(dirty);
+                    disable_save_button(true);
+                },10);
+            }
+            else
+            {
+                dirty = false;
+                disable_save_button(false);
+            }
+        }
+    }
+    // функция отслеживания изменений на вкладке редактирования курса
+    function something_changed(e)
+    {
+        dirty = tab;
+        disable_save_button(true);
+    }
+
+    function disable_save_button(status = false)
+    {
+        if(status){
+            document.querySelector(".js-save-button").classList.remove("disabled");
+        }else{
+            document.querySelector(".js-save-button").classList.add("disabled");
+        }
     }
 </script>
 

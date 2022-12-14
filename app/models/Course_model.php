@@ -43,7 +43,7 @@ class Course_model extends Model
 
 	];
 
-	#$data в данном случае - переменная которая попала в $_POST в ../controllers/Signup.php, т.е. массив регистрационных данных
+	#$data в данном случае - переменная которая попала в $_POST в ../controllers/Admin.php, т.е. массив данных
 	public function validate($data) 
 	{#проверяет все ли хорошо прошло во время обращения к бд
 
