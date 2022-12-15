@@ -30,6 +30,16 @@
         display: none;
     }
 
+    .loader{
+        position: relative;
+        width: 200px;
+        height: 200px;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%);
+        opacity: 0.7;
+    }
+
 </style>
 
 <?php if($action == 'add'):?>
@@ -118,7 +128,7 @@
             <!-- div-tabs -->
             <div oninput="something_changed(event)">
                 <div id="tabs-content">
-                    1
+                    
                 </div>
             </div>
             <!-- end div-tabs -->
@@ -202,21 +212,58 @@
     // функция сохранения&загрузки страницы где находится пользователь
     function show_tab(tab_name)
     {
-    var div = document.querySelector("#"+tab_name);
-    var children = div.parentNode.children;
+        var contentDiv = document.querySelector("#tabs-content");
+        show_loader(contentDiv);
+
+        var div = document.querySelector("#"+tab_name);
+        var children = div.parentNode.children;
         for(var i = 0; i < children.length; i++)
         {
             children[i].classList.remove("active-tab");
         }
 
-        div.classList.add("active-tab")
+        div.classList.add("active-tab");
 
-        var content = tab_name + "<input />";
-        document.querySelector("#tabs-content").innerHTML = content;
+        var data = {};
+        data.tab_name = tab;
+        data.data_type = "read";
+        send_data(data);
         
         disable_save_button(false);
 
     } 
+
+    function send_data(obj)
+    {
+        var myform = new FormData();
+        for(key in obj){
+        myform.append(key,obj[key]);
+        }
+        var ajax = new XMLHttpRequest();
+
+        ajax.addEventListener('readystatechange', function(){
+        if(ajax.readyState == 4){
+            if(ajax.status == 200){
+            //все гуд
+            //alert("Загрузка завершена");
+            
+            handle_result(ajax.responseText); 
+            }else{
+            //ошибкао от сервера
+            alert("Возникла ошибка");
+            }
+        }
+        });
+        ajax.open('post', '', true);
+        ajax.send(myform);
+    }
+
+    function handle_result(result)
+    {
+        var contentDiv = document.querySelector("#tabs-content");
+        contentDiv.innerHTML = result;
+    }
+
     // функция для переключения вкладок
     function set_tab(tab_name)
     {  
@@ -250,6 +297,12 @@
             document.querySelector(".js-save-button").classList.add("disabled");
         }
     }
+
+    function show_loader(item)
+    {
+        item.innerHTML = '<img class="loader" src="<?=ROOT?>/assets/images/loader.gif" alt="loader">';
+    }
+
 </script>
 
 <?php $this->view('admin/admin-footer', $data) ?>
