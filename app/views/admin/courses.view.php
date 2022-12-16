@@ -7,14 +7,17 @@
         margin-bottom: 10px;
         justify-content: center;
         text-align: center;
+        flex-wrap: wrap;
     }
 
     .my-tab{
         flex:1;
         border-bottom: solid 2px #ccc;
+        padding-top: 10px;
         padding-bottom: 10px;
         cursor: pointer;
         user-select: none;
+        min-width: 150px;
     }
 
     .my-tab:hover{
@@ -157,19 +160,21 @@
 
 
         <!-- Table with stripped rows -->
-        <table class="table table-striped">
-        <thead>
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">Название</th>
-            <th scope="col">Преподаватель</th>
-            <th scope="col">Категория</th>
-            <th scope="col">Цена</th>
-            <th scope="col">Основной предмет</th>
-            <th scope="col">Дата</th>
-            <th scope="col">Действие</th>
-            </tr>
-        </thead>
+        <div style="overflow-x:auto;">
+            <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Название</th>
+                <th scope="col">Преподаватель</th>
+                <th scope="col">Категория</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Основной предмет</th>
+                <th scope="col">Дата</th>
+                <th scope="col">Действие</th>
+                </tr>
+            </thead>
+        </div>
 
         <?php if(!empty($rows)):?>
             <tbody>
@@ -302,6 +307,8 @@
     {
         item.innerHTML = '<img class="loader" src="<?=ROOT?>/assets/images/loader.gif" alt="loader">';
     }
+
+    show_tab(tab);
 
 </script>
 

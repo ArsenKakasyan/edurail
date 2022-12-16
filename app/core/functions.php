@@ -162,3 +162,9 @@ function resize_image($filename, $max_size = 700)
 	}
 	return $filename;
 }
+
+// возврашает путь к файлу
+function views_path($path)
+{
+	return "../app/views/".$path.".view.php";
+}

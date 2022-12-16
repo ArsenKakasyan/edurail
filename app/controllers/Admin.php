@@ -74,10 +74,11 @@ class Admin extends Controller
 				{
 					if($_POST['tab_name'] == "course-landing-page")
 					{
-						//echo "hello there";
+						include views_path("course-edit-tabs/course-landing-page");
 					}
-					echo $_POST['tab_name'];
-				} die;
+					
+				} 
+				die;
 			}
 		}else
 		{
