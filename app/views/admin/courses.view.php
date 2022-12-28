@@ -229,11 +229,12 @@
 
         div.classList.add("active-tab");
 
-        var data = {};
-        data.tab_name = tab;
-        data.data_type = "read";
-        send_data(data);
-        
+        send_data({
+            tab_name: tab,
+            data_type: "read",
+            course_id: '<?=$row->id ?? ''?>',
+        });
+
         disable_save_button(false);
 
     } 

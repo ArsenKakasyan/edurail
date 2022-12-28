@@ -74,6 +74,7 @@ class Admin extends Controller
 				{
 					if($_POST['tab_name'] == "course-landing-page")
 					{
+						echo $_POST['course_id'];
 						include views_path("course-edit-tabs/course-landing-page");
 					}
 					

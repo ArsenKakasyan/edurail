@@ -102,7 +102,7 @@ class Database
         //courses table
         $query = "
 
-        CREATE TABLE IF NOT EXISTS `courses` (
+            CREATE TABLE `courses` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `title` varchar(100) NOT NULL,
             `description` text DEFAULT NULL,
@@ -122,6 +122,8 @@ class Database
             `welcome_message` varchar(2048) DEFAULT NULL,
             `approved` tinyint(1) NOT NULL DEFAULT 0,
             `published` tinyint(1) NOT NULL DEFAULT 0,
+            `subtitle` varchar(100) DEFAULT NULL,
+            `currency_id` int(11) DEFAULT NULL,
             PRIMARY KEY (`id`),
             KEY `title` (`title`),
             KEY `user_id` (`user_id`),
@@ -134,7 +136,7 @@ class Database
             KEY `date` (`date`),
             KEY `approved` (`approved`),
             KEY `published` (`published`)
-           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+            ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4
         ";
 
         $this->query($query);
