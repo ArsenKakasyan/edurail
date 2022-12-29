@@ -29,6 +29,7 @@ class Admin extends Controller
 		}
 		$user_id = Auth::getId();
 		$course = new Course_model();
+		$category = new Category_model();
 
 		$data = [];
 		$data['action'] = $action;
@@ -36,7 +37,6 @@ class Admin extends Controller
 
 		if($action == 'add')
 		{
-			$category = new Category_model();
 			
 			$data['categories'] = $category->findAll('asc');
 
@@ -65,16 +65,18 @@ class Admin extends Controller
 		}
 		elseif($action == 'edit')
 		{
-			//get course info
-			$data['row'] = $course->first(['user_id'=>$user_id, 'id'=>$id]);
+			$categories = $category->findAll('asc');
 
-			if($_SERVER['REQUEST_METHOD'] == "POST")
+			//get course info
+			$data['row'] = $row = $course->first(['user_id'=>$user_id, 'id'=>$id]);
+
+			if($_SERVER['REQUEST_METHOD'] == "POST" && $row)
 			{
 				if(!empty($_POST['data_type']) && $_POST['data_type'] == "read")
 				{
 					if($_POST['tab_name'] == "course-landing-page")
 					{
-						echo $_POST['course_id'];
+						//course landing page
 						include views_path("course-edit-tabs/course-landing-page");
 					}
 					

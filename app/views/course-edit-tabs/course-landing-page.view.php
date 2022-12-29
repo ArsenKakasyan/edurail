@@ -2,22 +2,22 @@
 <form>
     <div class="col-md-8 mx-auto">
         
-        <div class="h5 my-4"><b>Целевая страница курса:</b></div>
+        <div class="h5 my-4"><b>Целевая страница курса</b></div>
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Заголовок курса</span>
-            <input name="title" type="text" class="form-control">
+            <input value="<?=$row->title?>" name="title" type="text" class="form-control">
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Подзаголовок курса</span>
-            <input name ="subtitle" type="text" class="form-control">
+            <input value="<?=$row->subtitle?>" name ="subtitle" type="text" class="form-control">
         </div>
 
         <div class="row mb-3">
             <label for="inputPassword" class="col-sm-2 col-form-label"><b>Описание курса</b></label>
             <div class="col-sm-10">
-            <textarea name="description" class="form-control" style="height: 100px"></textarea>
+            <textarea name="description" class="form-control" style="height: 100px"><?=$row->description?></textarea>
             </div>
         </div>
 
@@ -37,6 +37,12 @@
             <div class="col-md-6 my-3">
                 <select name="category_id" class="form-select">
                     <option value="">--Выберите категорию--</option>
+                    <?php if(!empty($categories)):?>
+                        <?php foreach($categories as $cat):?>
+                            <option <?=set_select('category_id', $cat->id, $row->category_id)?> value="<?=$cat->id?>"><?=esc($cat->category)?></option> 
+                        <?php endforeach;?>
+                    <?php endif;?>
+
                 </select>
             </div>
 
@@ -62,7 +68,7 @@
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Основной предмет</span>
-            <input name="primary_subject" type="text" class="form-control">
+            <input value="<?=$row->primary_subject?>" name="primary_subject" type="text" class="form-control">
         </div>
 
         <div class="my-4 row">
