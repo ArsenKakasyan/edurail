@@ -30,6 +30,10 @@ class Admin extends Controller
 		$user_id = Auth::getId();
 		$course = new Course_model();
 		$category = new Category_model();
+		$language = new Language_model();
+		$level = new Level_model();
+		$price = new Price_model();
+		$currency = new Currency_model();
 
 		$data = [];
 		$data['action'] = $action;
@@ -66,6 +70,10 @@ class Admin extends Controller
 		elseif($action == 'edit')
 		{
 			$categories = $category->findAll('asc');
+			$languages = $language->findAll('asc');
+			$levels = $level->findAll('asc');
+			$prices = $price->findAll('asc');
+			$currencies = $currency->findAll('asc');
 
 			//get course info
 			$data['row'] = $row = $course->first(['user_id'=>$user_id, 'id'=>$id]);
