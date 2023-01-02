@@ -14,9 +14,9 @@ class Ajax extends Controller
 		//$this->view('ajax', $data);
 	}
     // функция для редактирования курса и загрузки страницы
-    public function course_edit($id = null)
+    public function course_edit($user_id = null, $id = null)
 	{
-        $user_id = Auth::getId();
+
 		$course = new Course_model();
 		$category = new Category_model();
 		$language = new Language_model();
