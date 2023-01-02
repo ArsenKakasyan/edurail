@@ -110,7 +110,7 @@
         <?php if(!empty($row)):?>
 
             <div class="float-end">
-                <button class="js-save-button btn btn-primary disabled">Сохранить</button>
+                <button onclick="save_content()" class="js-save-button btn btn-primary disabled">Сохранить</button>
                 <a href="<?=ROOT?>/admin/courses">
                     <button class="btn btn-secondary">Назад</button>
                 </a>
@@ -254,7 +254,7 @@
             
             handle_result(ajax.responseText); 
             }else{
-            //ошибкао от сервера
+            //ошибка от сервера
             alert("Возникла ошибка");
             }
         }
@@ -265,8 +265,21 @@
 
     function handle_result(result)
     {
-        var contentDiv = document.querySelector("#tabs-content");
-        contentDiv.innerHTML = result;
+
+        var obj = JSON.parse(result);
+
+        if(typeof obj == 'object'){
+            if(obj.data_type == "read"){
+                var contentDiv = document.querySelector("#tabs-content");
+                contentDiv.innerHTML = obj.data;
+            }
+            else if(obj.data_type == "save"){
+                dirty = false;
+                disable_save_button(true);
+                alert("Данные сохранены");
+            }
+        }
+        
     }
 
     // функция для переключения вкладок
@@ -310,6 +323,24 @@
 
     show_tab(tab);
 
+// для сохранения контента
+    function save_content()
+    {
+        var content = document.querySelector("#tabs-content");
+        var inputs = content.querySelectorAll("input, textarea, select");
+
+        var obj = {};
+        obj.data_type = "save";
+        obj.tab_name = tab;
+
+        for (var i = 0; i < inputs.length; i++) {
+
+            var key = inputs[i].name;
+            obj[key] = inputs[i].value;
+        }
+        send_data(obj);
+    }
+ 
 </script>
 
 <?php $this->view('admin/admin-footer', $data) ?>

@@ -84,8 +84,25 @@ class Admin extends Controller
 				{
 					if($_POST['tab_name'] == "course-landing-page")
 					{
-						//course landing page
-						include views_path("course-edit-tabs/course-landing-page");
+						//берем страницу из папки views и упаковываем ее в массив $info
+						$info['data'] = file_get_contents(views_path("course-edit-tabs/course-landing-page"));
+						$info['data_type'] = "read";
+						// преобразуем массив в json и отправляем его в браузер
+						echo json_encode($info);
+						// типа rest api
+					}
+					
+				}else
+				if(!empty($_POST['data_type']) && $_POST['data_type'] == "save")
+				{
+					if($_POST['tab_name'] == "course-landing-page")
+					{
+
+						$info['data'] = "";
+						$info['data_type'] = "save";
+
+						echo json_encode($info);
+
 					}
 					
 				} 
