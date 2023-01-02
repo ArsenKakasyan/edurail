@@ -84,8 +84,8 @@ class Admin extends Controller
 				{
 					if($_POST['tab_name'] == "course-landing-page")
 					{
-						//берем страницу из папки views и упаковываем ее в массив $info
-						$info['data'] = file_get_contents(views_path("course-edit-tabs/course-landing-page"));
+						//обращаемся к контроллеру ajax и упаковываем страницу из функции course_edit в массив $info 
+						$info['data'] = file_get_contents(ROOT."/ajax/course_edit/".$id);
 						$info['data_type'] = "read";
 						// преобразуем массив в json и отправляем его в браузер
 						echo json_encode($info);
