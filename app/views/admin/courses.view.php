@@ -265,19 +265,21 @@
 
     function handle_result(result)
     {
-
-        var obj = JSON.parse(result);
-
-        if(typeof obj == 'object'){
-            if(obj.data_type == "read"){
-                var contentDiv = document.querySelector("#tabs-content");
-                contentDiv.innerHTML = obj.data;
-            }
-            else if(obj.data_type == "save"){
-                dirty = false;
-                disable_save_button(true);
-                alert("Данные сохранены");
-            }
+        //если объект (Json), то обработаем его
+        if(result.substr(0,2) == '{"')
+            {
+                var obj = JSON.parse(result);
+                if(typeof obj == 'object'){
+            
+                    if(obj.data_type == "save"){
+                        alert("Данные сохранены");
+                        disable_save_button(false);
+                    }
+                }
+        }else{ 
+            // если не объект (Json), запишем в контентдив 
+            var contentDiv = document.querySelector("#tabs-content");
+            contentDiv.innerHTML = result;
         }
         
     }
