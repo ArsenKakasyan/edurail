@@ -111,6 +111,37 @@ class Course_model extends Model
 			$this->errors['category_id'] = "Выберите категорию";
 		}
 
+		if(empty($data['level_id']))
+		{
+			$this->errors['level_id'] = "Выберите уровень";
+		}
+
+		if(empty($data['currency_id']))
+		{
+			$this->errors['currency_id'] = "Выберите валюту";
+		}
+
+		if(empty($data['language_id']))
+		{
+			$this->errors['language_id'] = "Выберите язык";
+		}
+
+		if(empty($data['price_id']))
+		{
+			$this->errors['price_id'] = "Выберите цену";
+		}
+
+		if(empty($data['subtitle']))
+		{
+			$this->errors['subtitle'] = "Выберите подзаголовок";
+		}
+
+		if(empty($data['description']))
+		{
+			$this->errors['description'] = "Введите описание курса";
+		}
+
+
 		if(empty($this->errors)) #если все прошло хорошо
 		{
 			return true;

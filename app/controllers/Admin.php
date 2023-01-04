@@ -96,6 +96,11 @@ class Admin extends Controller
 						 типа rest api, но он будет использоваться не при read, а при save и delete
 						*/
 						include views_path('course-edit-tabs/course-landing-page');
+
+					}else
+					if($_POST['tab_name'] == "course-messages")
+					{
+						include views_path('course-edit-tabs/course-messages');
 					}
 					
 				}else
@@ -116,10 +121,31 @@ class Admin extends Controller
 							$info['errors'] = $course->errors;
 							$info['data'] = "Ошибка сохранения";
 							$info['data_type'] = "save";
+
+						}
+						echo json_encode($info);
+					}else
+					if($_POST['tab_name'] == "course-messages")
+					{
+
+						if($course->edit_validate($_POST)){
 							
+							$course->update($id, $_POST);
+
+							$info['data'] = "Курс успешно сохранен";
+							$info['data_type'] = "save";
+
+						}else{
+
+							$info['errors'] = $course->errors;
+							$info['data'] = "Ошибка сохранения";
+							$info['data_type'] = "save";
+
 						}
 						echo json_encode($info);
 					}
+
+					
 					
 				} 
 				die;

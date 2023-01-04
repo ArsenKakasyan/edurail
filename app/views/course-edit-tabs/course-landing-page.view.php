@@ -2,7 +2,7 @@
 <form>
     <div class="col-md-8 mx-auto">
         
-        <div class="h5 my-4"><b>Целевая страница курса</b></div>
+        <div class="my-4 h5 my-4"><b>Целевая страница курса</b></div>
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Заголовок курса</span>
@@ -30,6 +30,9 @@
                     <option value="">--Выберите язык--</option>
                     <?php if(!empty($languages)):?>
                         <?php foreach($languages as $lang):?>
+                            <?php
+                                $row->language_id = !$row->language_id ? 73 : $row->language_id;
+                            ?>
                             <option <?=set_select('language_id', $lang->id, $row->language_id)?> value="<?=$lang->id?>"><?=esc($lang->language)?></option> 
                         <?php endforeach;?>
                     <?php endif;?>
