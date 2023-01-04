@@ -7,11 +7,13 @@
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Заголовок курса</span>
             <input value="<?=$row->title?>" name="title" type="text" class="form-control">
+            <small class="error error-title w-100 text-danger"></small>
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Подзаголовок курса</span>
             <input value="<?=$row->subtitle?>" name ="subtitle" type="text" class="form-control">
+            <small class="error error-subtitle w-100 text-danger"></small>
         </div>
 
         <div class="row mb-3">
@@ -19,6 +21,7 @@
             <div class="col-sm-10">
             <textarea name="description" class="form-control" style="height: 100px"><?=$row->description?></textarea>
             </div>
+            <small class="error error-description w-100 text-danger"></small>
         </div>
 
         <div class="row">
@@ -30,8 +33,8 @@
                             <option <?=set_select('language_id', $lang->id, $row->language_id)?> value="<?=$lang->id?>"><?=esc($lang->language)?></option> 
                         <?php endforeach;?>
                     <?php endif;?>
-
                 </select>
+                <small class="error error-language_id w-100 text-danger"></small>
             </div>
 
             <div class="col-md-6 my-3">
@@ -42,8 +45,8 @@
                             <option <?=set_select('level_id', $lvl->id, $row->level_id)?> value="<?=$lvl->id?>"><?=esc($lvl->level)?></option> 
                         <?php endforeach;?>
                     <?php endif;?>
-
                 </select>
+                <small class="error error-level_id w-100 text-danger"></small>
             </div>
 
             <div class="col-md-6 my-3">
@@ -54,14 +57,15 @@
                             <option <?=set_select('category_id', $cat->id, $row->category_id)?> value="<?=$cat->id?>"><?=esc($cat->category)?></option> 
                         <?php endforeach;?>
                     <?php endif;?>
-
                 </select>
+                <small class="error error-category_id w-100 text-danger"></small>
             </div>
 
             <div class="col-md-6 my-3">
                 <select name="sub_category_id" class="form-select">
                     <option value="">--Выберите подкатегорию--</option>
                 </select>
+                <small class="error error-sub_category_id w-100 text-danger"></small>
             </div>
             
                 <label><b>Ценовая категория курса:</b></label>
@@ -73,9 +77,10 @@
                                 <option <?=set_select('currency_id', $cur->id, $row->currency_id)?> value="<?=$cur->id?>"><?=esc($cur->currency . " ($cur->symbol)")?></option> 
                             <?php endforeach;?>
                         <?php endif;?>
-
                     </select>
+                    <small class="error error-currency_id w-100 text-danger"></small>
                 </div>
+
                 <div class="col-md-8 mb-4">  
                     <select name="price_id" class="form-select">
                         <option value="">--Выберите цену--</option>
@@ -84,8 +89,8 @@
                                 <option <?=set_select('price_id', $prc->id, $row->price_id)?> value="<?=$prc->id?>"><?=esc($prc->name . " ($prc->price)")?></option> 
                             <?php endforeach;?>
                         <?php endif;?>
-
                     </select>
+                    <small class="error error-price_id w-100 text-danger"></small>
                 </div>
             
         </div>
@@ -93,6 +98,7 @@
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Основной предмет</span>
             <input value="<?=$row->primary_subject?>" name="primary_subject" type="text" class="form-control">
+                <small class="error error-primary_subject w-100 text-danger"></small>
         </div>
 
         <div class="my-4 row">

@@ -274,7 +274,23 @@
                     if(obj.data_type == "save"){
 
                         alert(obj.data);
-                        disable_save_button(false);
+                        //очистить все ошибки
+                        var error_container = document.querySelectorAll(".error");
+                        for (var i = 0; i < error_container.length; i++) {
+                            error_container[i].innerHTML = "";
+                        }
+                        // показать какие ошибки есть
+                        if(typeof obj.errors == 'object')
+                        {
+                            for(key in obj.errors)
+                            {
+                                var errorDiv = document.querySelector(".error-"+key).innerHTML = obj.errors[key];
+                            }
+                            
+                        }else{
+                            disable_save_button(false);
+                        }
+                            
                     }
                 }
         }else{ 
