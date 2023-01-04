@@ -272,7 +272,8 @@
                 if(typeof obj == 'object'){
             
                     if(obj.data_type == "save"){
-                        alert("Данные сохранены");
+
+                        alert(obj.data);
                         disable_save_button(false);
                     }
                 }

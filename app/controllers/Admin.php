@@ -76,6 +76,7 @@ class Admin extends Controller
 			$currencies = $currency->findAll('asc');
 
 			//get course info
+			// возвращает результат если есть курс с таким id и user_id = $user_id сессии
 			$data['row'] = $row = $course->first(['user_id'=>$user_id, 'id'=>$id]);
 
 			if($_SERVER['REQUEST_METHOD'] == "POST" && $row)
@@ -103,11 +104,21 @@ class Admin extends Controller
 					if($_POST['tab_name'] == "course-landing-page")
 					{
 
-						$info['data'] = "";
-						$info['data_type'] = "save";
+						if($course->edit_validate($_POST)){
+							
+							$course->update($id, $_POST);
 
+							$info['data'] = "Курс успешно сохранен";
+							$info['data_type'] = "save";
+
+						}else{
+
+							$info['errors'] = $course->errors;
+							$info['data'] = "Ошибка сохранения";
+							$info['data_type'] = "save";
+							
+						}
 						echo json_encode($info);
-
 					}
 					
 				} 
