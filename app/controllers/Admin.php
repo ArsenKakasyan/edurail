@@ -82,19 +82,9 @@ class Admin extends Controller
 			if($_SERVER['REQUEST_METHOD'] == "POST" && $row)
 			{
 				if(!empty($_POST['data_type']) && $_POST['data_type'] == "read")
-				{
+				{	// проверяем tab_name и подключаем нужный файл
 					if($_POST['tab_name'] == "course-landing-page")
-					{ /*
-						обращаемся к контроллеру ajax и упаковываем страницу из функции course_edit в массив $info 
-
-						$info['data'] = file_get_contents(ROOT."/ajax/course_edit/".$user_id."/".$id);
-						$info['data_type'] = "read";
-
-						 преобразуем массив в json и отправляем его в браузер
-						echo json_encode($info);
-
-						 типа rest api, но он будет использоваться не при read, а при save и delete
-						*/
+					{
 						include views_path('course-edit-tabs/course-landing-page');
 
 					}else
@@ -106,46 +96,24 @@ class Admin extends Controller
 				}else
 				if(!empty($_POST['data_type']) && $_POST['data_type'] == "save")
 				{
-					if($_POST['tab_name'] == "course-landing-page")
-					{
 
-						if($course->edit_validate($_POST)){
-							
-							$course->update($id, $_POST);
 
-							$info['data'] = "Курс успешно сохранен";
-							$info['data_type'] = "save";
+					if($course->edit_validate($_POST, $id, $_POST['tab_name'])){
+						
+						$course->update($id, $_POST);
 
-						}else{
+						$info['data'] = "Курс успешно сохранен";
+						$info['data_type'] = "save";
 
-							$info['errors'] = $course->errors;
-							$info['data'] = "Ошибка сохранения";
-							$info['data_type'] = "save";
+					}else{
 
-						}
-						echo json_encode($info);
-					}else
-					if($_POST['tab_name'] == "course-messages")
-					{
+						$info['errors'] = $course->errors;
+						$info['data'] = "Ошибка сохранения";
+						$info['data_type'] = "save";
 
-						if($course->edit_validate($_POST)){
-							
-							$course->update($id, $_POST);
-
-							$info['data'] = "Курс успешно сохранен";
-							$info['data_type'] = "save";
-
-						}else{
-
-							$info['errors'] = $course->errors;
-							$info['data'] = "Ошибка сохранения";
-							$info['data_type'] = "save";
-
-						}
-						echo json_encode($info);
 					}
-
-					
+					// преобразуем массив в json и отправляем его в браузер, типа rest api
+					echo json_encode($info);
 					
 				} 
 				die;

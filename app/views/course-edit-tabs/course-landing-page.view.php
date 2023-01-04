@@ -113,11 +113,11 @@
                 Загрузите изображение своего курса здесь. Важные требования для успешной загрузки: 750x422 пикселей; jpg, jpeg, gif, png, без текста на изображении.
 
                 <br><br>
-                <input type="file" name="">
+                <input class="js-image-upload-input" type="file" name="">
                 <div class="progress my-4">
                     <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                 </div>
-
+                <button class="js-image-upload-cancel-button btn btn-danger text-white btn-sm hide">Отменить</button>
             </div>
         </div>
 
@@ -130,11 +130,11 @@
                 После просмотра качественного промовидео вероятность того, что студенты запишутся на ваш курс, может увеличиться в 5 раз. A при наличии исключительно хороших видео — даже в 10 раз.
 
                 <br><br>
-                <input type="file" name="">
+                <input class="js-video-upload-input" type="file" name="">
                 <div class="progress my-4">
                     <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                 </div>
-
+                <button class="js-video-upload-cancel-button btn btn-danger text-white btn-sm hide">Отменить</button>
             </div>
         </div>
 

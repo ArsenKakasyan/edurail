@@ -82,63 +82,73 @@ class Course_model extends Model
 		return false;
 	}
 
-	public function edit_validate($data, $id = null) 
+	public function edit_validate($data, $id = null, $tab_name = null) 
 	{#проверяет все ли хорошо прошло во время обращения к бд при изменении данных аккаунта
 
 		$this->errors = [];
 
-		#валидации
-		if(empty($data['title']))
+		
+		if($tab_name == "course-landing-page")
 		{
-			$this->errors['title'] = "Требуется название";
+
+			#валидации
+			if(empty($data['title']))
+			{
+				$this->errors['title'] = "Требуется название";
+			}else
+			if(!preg_match("/^[а-яА-ЯЁёa-zA-Z \-\_\&]+$/u", trim($data['title'])))
+			{
+				$this->errors['title'] = "Название курса содержит только буквы, пробелы и [-_&]";
+			}
+
+			if(empty($data['primary_subject']))
+			{
+				$this->errors['primary_subject'] = "Требуется основной предмет";
+			}else
+			if(!preg_match("/^[а-яА-ЯЁёa-zA-Z \-\_\&]+$/u", trim($data['primary_subject'])))
+			{
+				$this->errors['primary_subject'] = "Название предмета содержит только буквы, пробелы и [-_&]";
+			}
+
+			if(empty($data['category_id']))
+			{
+				$this->errors['category_id'] = "Выберите категорию";
+			}
+
+			if(empty($data['level_id']))
+			{
+				$this->errors['level_id'] = "Выберите уровень";
+			}
+
+			if(empty($data['currency_id']))
+			{
+				$this->errors['currency_id'] = "Выберите валюту";
+			}
+
+			if(empty($data['language_id']))
+			{
+				$this->errors['language_id'] = "Выберите язык";
+			}
+
+			if(empty($data['price_id']))
+			{
+				$this->errors['price_id'] = "Выберите цену";
+			}
+
+			if(empty($data['subtitle']))
+			{
+				$this->errors['subtitle'] = "Выберите подзаголовок";
+			}
+
+			if(empty($data['description']))
+			{
+				$this->errors['description'] = "Введите описание курса";
+			}
+
 		}else
-		if(!preg_match("/^[а-яА-ЯЁёa-zA-Z \-\_\&]+$/u", trim($data['title'])))
+		if($tab_name == "course-messages")
 		{
-			$this->errors['title'] = "Название курса содержит только буквы, пробелы и [-_&]";
-		}
-
-		if(empty($data['primary_subject']))
-		{
-			$this->errors['primary_subject'] = "Требуется основной предмет";
-		}else
-		if(!preg_match("/^[а-яА-ЯЁёa-zA-Z \-\_\&]+$/u", trim($data['primary_subject'])))
-		{
-			$this->errors['primary_subject'] = "Название предмета содержит только буквы, пробелы и [-_&]";
-		}
-
-		if(empty($data['category_id']))
-		{
-			$this->errors['category_id'] = "Выберите категорию";
-		}
-
-		if(empty($data['level_id']))
-		{
-			$this->errors['level_id'] = "Выберите уровень";
-		}
-
-		if(empty($data['currency_id']))
-		{
-			$this->errors['currency_id'] = "Выберите валюту";
-		}
-
-		if(empty($data['language_id']))
-		{
-			$this->errors['language_id'] = "Выберите язык";
-		}
-
-		if(empty($data['price_id']))
-		{
-			$this->errors['price_id'] = "Выберите цену";
-		}
-
-		if(empty($data['subtitle']))
-		{
-			$this->errors['subtitle'] = "Выберите подзаголовок";
-		}
-
-		if(empty($data['description']))
-		{
-			$this->errors['description'] = "Введите описание курса";
+			
 		}
 
 

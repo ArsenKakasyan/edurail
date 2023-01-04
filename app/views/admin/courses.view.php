@@ -274,6 +274,7 @@
                     if(obj.data_type == "save"){
 
                         alert(obj.data);
+                    
                         //очистить все ошибки
                         var error_container = document.querySelectorAll(".error");
                         for (var i = 0; i < error_container.length; i++) {
@@ -289,6 +290,7 @@
                             
                         }else{
                             disable_save_button(false);
+                            dirty = false;
                         }
                             
                     }
