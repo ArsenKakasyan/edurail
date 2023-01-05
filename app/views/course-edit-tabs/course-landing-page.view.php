@@ -113,9 +113,9 @@
                 Загрузите изображение своего курса здесь. Важные требования для успешной загрузки: 750x422 пикселей; jpg, jpeg, gif, png, без текста на изображении.
 
                 <br><br>
-                <input class="js-image-upload-input" type="file" name="">
+                <input onchange="upload_course_image(this.files[0])" class="js-image-upload-input" type="file" name="">
                 <div class="progress my-4">
-                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    <div class="progress-bar progress-bar-image" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                 </div>
                 <button class="js-image-upload-cancel-button btn btn-danger text-white btn-sm hide">Отменить</button>
             </div>
@@ -132,7 +132,7 @@
                 <br><br>
                 <input class="js-video-upload-input" type="file" name="">
                 <div class="progress my-4">
-                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    <div class="progress-bar progress-bar-video" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                 </div>
                 <button class="js-video-upload-cancel-button btn btn-danger text-white btn-sm hide">Отменить</button>
             </div>

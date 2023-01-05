@@ -361,7 +361,50 @@
         }
         send_data(obj);
     }
- 
+
+    var course_image_uploading = false;
+    function upload_course_image(file)
+    {
+        if (course_image_uploading)
+        {
+            alert("Идет загрузка файла");
+            return;
+        }
+        course_image_uploading = true;
+
+        var myform = new FormData();
+        var ajax = new XMLHttpRequest();
+
+        ajax.addEventListener('readystatechange', function(){
+        if(ajax.readyState == 4)
+            {
+                if(ajax.status == 200){
+                //все гуд
+                //alert("Загрузка завершена");
+                
+                alert(ajax.responseText); 
+                course_image_uploading = false;
+                }else{
+                //ошибка от сервера
+                alert("Возникла ошибка");
+                }
+            }
+        });
+
+        ajax.upload.addEventListener('progress', function(e){
+
+            var percent = Math.round((e.loaded / e.total) * 100);
+            document.querySelector(".progress-bar-image").style.width = percent + "%";
+            document.querySelector(".progress-bar-image").innerHTML = percent + "%";
+        });
+
+        myform.append('data_type', 'upload_course_image');
+        myform.append('tab_name', tab);
+        myform.append('image', file);
+
+        ajax.open('post', '', true);
+        ajax.send(myform);
+    }
 </script>
 
 <?php $this->view('admin/admin-footer', $data) ?>
