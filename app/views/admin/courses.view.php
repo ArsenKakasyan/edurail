@@ -372,6 +372,18 @@
             alert("Идет загрузка файла");
             return;
         }
+
+        // проверка типа файла
+        var allowed_types = ['jpg', 'jpeg', 'png'];
+        var ext = file.name.split('.').pop().toLowerCase();
+
+        if(!allowed_types.includes(ext))
+        {
+            alert("Разрешенные типы файлов: "+allowed_types.join(", "));
+            return;
+        }
+
+        // начало загрузки
         course_image_uploading = true;
 
         document.querySelector(".js-image-upload-info").innerHTML = file.name;
@@ -398,7 +410,7 @@
                     document.querySelector(".js-image-upload-cancel-button").classList.add("hide");
             }
         });
-        
+
         // обработчик для ошибок
         ajax_course_image.addEventListener('error', function(){
             alert("Возникла ошибка");

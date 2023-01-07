@@ -115,7 +115,27 @@ class Admin extends Controller
 					// преобразуем массив в json и отправляем его в браузер, типа rest api
 					echo json_encode($info);
 					
-				} 
+				}else
+				if(!empty($_POST['data_type']) && $_POST['data_type'] == "upload_course_image")
+				{
+					$folder = "uploads/courses/";
+					if(!file_exists($folder))
+					{
+						mkdir($folder, 0777, true);
+					}
+
+					$errors = [];
+					// проверяем есть ли файл и совпадает ли tab_name
+					if(!empty($_FILES['image']['name']) && $_POST['tab_name'] == "course-landing-page")
+					{
+
+						$destination = $folder . time() . $_FILES['image']['name'];
+						move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+					}
+					//show($_POST);
+					//show($_FILES);
+				}
+
 				die;
 			}
 		}else
