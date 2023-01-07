@@ -363,6 +363,8 @@
     }
 
     var course_image_uploading = false;
+    var ajax_course_image = null;
+
     function upload_course_image(file)
     {
         if (course_image_uploading)
@@ -372,38 +374,60 @@
         }
         course_image_uploading = true;
 
+        document.querySelector(".js-image-upload-info").innerHTML = file.name;
+        document.querySelector(".js-image-upload-info").classList.remove("hide");
+        document.querySelector(".js-image-upload-input").classList.add("hide");
+        document.querySelector(".js-image-upload-cancel-button").classList.remove("hide");
         var myform = new FormData();
-        var ajax = new XMLHttpRequest();
+        ajax_course_image = new XMLHttpRequest();
 
-        ajax.addEventListener('readystatechange', function(){
-        if(ajax.readyState == 4)
+        // обработчик для закачки
+        ajax_course_image.addEventListener('readystatechange', function(){
+        if(ajax_course_image.readyState == 4)
             {
-                if(ajax.status == 200){
-                //все гуд
-                //alert("Загрузка завершена");
+                if(ajax_course_image.status == 200){
+                    //все гуд
+                    //alert("Загрузка завершена");
+                    
+                    alert(ajax_course_image.responseText); 
                 
-                alert(ajax.responseText); 
-                course_image_uploading = false;
-                }else{
-                //ошибка от сервера
-                alert("Возникла ошибка");
                 }
+                    course_image_uploading = false;
+                    document.querySelector(".js-image-upload-info").classList.add("hide");
+                    document.querySelector(".js-image-upload-input").classList.remove("hide");
+                    document.querySelector(".js-image-upload-cancel-button").classList.add("hide");
             }
         });
+        
+        // обработчик для ошибок
+        ajax_course_image.addEventListener('error', function(){
+            alert("Возникла ошибка");
+        });
+        // обработчик для отмены
+        ajax_course_image.addEventListener('abort', function(){
+            alert("Загрузка отменена");
+        });
 
-        ajax.upload.addEventListener('progress', function(e){
+        // обработчик для прогресса загрузки файла
+        ajax_course_image.upload.addEventListener('progress', function(e){
 
             var percent = Math.round((e.loaded / e.total) * 100);
             document.querySelector(".progress-bar-image").style.width = percent + "%";
             document.querySelector(".progress-bar-image").innerHTML = percent + "%";
+
         });
 
         myform.append('data_type', 'upload_course_image');
         myform.append('tab_name', tab);
         myform.append('image', file);
 
-        ajax.open('post', '', true);
-        ajax.send(myform);
+        ajax_course_image.open('post', '', true);
+        ajax_course_image.send(myform);
+    }
+    // отмена загрузки файла
+    function ajax_course_image_cancel()
+    {
+        ajax_course_image.abort();
     }
 </script>
 
