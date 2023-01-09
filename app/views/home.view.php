@@ -58,25 +58,29 @@
       </div>
     </section><!-- End Hero Slider Section -->
 
+    <?php if(!empty($rows)):?>
+
     <!-- ======= Post Grid Section ======= -->
     <section id="posts" class="posts">
       <div class="container" data-aos="fade-up">
         <div class="row g-5">
           <div class="col-lg-4">
+
             <div class="post-entry-1 lg">
-              <a href="single-post.html"><img src="<?=ROOT?>/zenblog/assets/img/post-landscape-1.jpg" alt="" class="img-fluid"></a>
-              <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-              <h2><a href="single-post.html">11 Work From Home Part-Time Jobs You Can Do Now</a></h2>
-              <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus exercitationem? Nihil tempore odit ab minus eveniet praesentium, similique blanditiis molestiae ut saepe perspiciatis officia nemo, eos quae cumque. Accusamus fugiat architecto rerum animi atque eveniet, quo, praesentium dignissimos</p>
+              <a href="single-post.html"><img src="<?=get_image($rows[0]->course_image)?>" alt="" style="object-fit: cover;" class="img-fluid"></a>
+              <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span><?=$rows[0]->date?></span></div>
+              <h2><a href="single-post.html"><?=esc($rows[0]->title)?></a></h2>
+              <p class="mb-4 d-block"><?=esc($rows[0]->description)?></p>
 
-              <div class="d-flex align-items-center author">
-                <div class="photo"><img src="<?=ROOT?>/zenblog/assets/img/person-1.jpg" alt="" class="img-fluid"></div>
-                <div class="name">
-                  <h3 class="m-0 p-0">Cameron Williamson</h3>
+              <?php if(!empty($rows[0]->user_row)):?>
+                <div class="d-flex align-items-center author">
+                  <div class="photo"><img src="<?=get_image($rows[0]->user_row->image)?>" style="max-height:40px;object-fit:cover;" alt="" class="img-fluid"></div>
+                  <div class="name">
+                    <h3 class="m-0 p-0"><?=$rows[0]->user_row->firstname?> <?=$rows[0]->user_row->lastname?></h3>
+                  </div>
                 </div>
-              </div>
+              <?php endif;?>
             </div>
-
           </div>
 
           <div class="col-lg-8">
@@ -167,7 +171,7 @@
         </div> <!-- End .row -->
       </div>
     </section> <!-- End Post Grid Section -->
-
+    <?php endif;?>
     <!-- ======= Culture Category Section ======= -->
     <section class="category-section">
       <div class="container" data-aos="fade-up">

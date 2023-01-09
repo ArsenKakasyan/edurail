@@ -38,7 +38,7 @@ class Admin extends Controller
 		$data = [];
 		$data['action'] = $action;
 		$data['id'] = $id;
-
+		
 		if($action == 'add')
 		{
 			
@@ -93,49 +93,49 @@ class Admin extends Controller
 							include views_path('course-edit-tabs/course-messages');
 						}
 						
-					}else
+						}else
 						if(!empty($_POST['data_type']) && $_POST['data_type'] == "save")
 						{
 							// проверка валидности формы
 							if($_SESSION['csrf_token'] == $_POST['csrf_token']){
 
-							if($course->edit_validate($_POST, $id, $_POST['tab_name'])){
+								if($course->edit_validate($_POST, $id, $_POST['tab_name'])){
 
-								// проверяем существует ли временное изображение
-								if($row->course_image_tmp != "" && file_exists($row->course_image_tmp) && $row->csrf_token == $_POST['csrf_token'])
-								{	// если существует, удаляем текущее изображение
-									if(file_exists($row->course_image))
-									{ 
-										unlink($row->course_image);
+									// проверяем существует ли временное изображение
+									if($row->course_image_tmp != "" && file_exists($row->course_image_tmp) && $row->csrf_token == $_POST['csrf_token'])
+									{	// если существует, удаляем текущее изображение
+										if(file_exists($row->course_image))
+										{ 
+											unlink($row->course_image);
+										}
+										// присваиваем временное изображение курсу
+										$_POST['course_image'] = $row->course_image_tmp; 
+										$_POST['course_image_tmp'] = ""; // и удаляем временное изображение
 									}
-									// присваиваем временное изображение курсу
-									$_POST['course_image'] = $row->course_image_tmp; 
-									$_POST['course_image_tmp'] = ""; // и удаляем временное изображение
+
+									$course->update($id, $_POST);
+
+									$info['data'] = "Курс успешно сохранен";
+									$info['data_type'] = "save";
+
+								}else{
+
+									$info['errors'] = $course->errors;
+									$info['data'] = "Ошибка сохранения";
+									$info['data_type'] = "save";
+
 								}
-
-								$course->update($id, $_POST);
-
-								$info['data'] = "Курс успешно сохранен";
-								$info['data_type'] = "save";
-
 							}else{
-
-								$info['errors'] = $course->errors;
-								$info['data'] = "Ошибка сохранения";
-								$info['data_type'] = "save";
+								$info['errors'] = ['key'=>'value'];
+								$info['data'] = "Эта форма не валидна";
+								$info['data_type'] = $_POST['data_type'];
+			
 
 							}
-						}else{
-							$info['errors'] = ['key'=>'value'];
-							$info['data'] = "Эта форма не валидна";
-							$info['data_type'] = $_POST['data_type'];
-		
-
-						}
-						// преобразуем массив в json и отправляем его в браузер, типа rest api
-						echo json_encode($info);
+							// преобразуем массив в json и отправляем его в браузер, типа rest api
+							echo json_encode($info);
 						
-					}else
+						}else
 					if(!empty($_POST['data_type']) && $_POST['data_type'] == "upload_course_image")
 					{
 						$folder = "uploads/courses/";

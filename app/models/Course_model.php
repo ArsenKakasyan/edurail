@@ -192,7 +192,7 @@ class Course_model extends Model
 		{	#проходим через каждую строку в таблице 1
 			foreach($rows as $key => $row){
 
-				$query = "select firstname, lastname, role from users where id = :id limit 1"; #получаем действительную строку из таблицы пользователей 3
+				$query = "select firstname, lastname, image, role from users where id = :id limit 1"; #получаем действительную строку из таблицы пользователей 3
 				$user = $db->query($query,['id'=>$row->user_id]); # проверяем id пользователя 2
 				if(!empty($user)){
 					# и все это мракобесие чтобы вывести вместо id имя пользователя 4
