@@ -382,6 +382,10 @@
             alert("Разрешенные типы файлов: "+allowed_types.join(", "));
             return;
         }
+        // превью картинки
+        var img = document.querySelector(".js-image-upload-preview");
+        var link = URL.createObjectURL(file);
+        img.src = link;
 
         // начало загрузки
         course_image_uploading = true;
@@ -390,6 +394,7 @@
         document.querySelector(".js-image-upload-info").classList.remove("hide");
         document.querySelector(".js-image-upload-input").classList.add("hide");
         document.querySelector(".js-image-upload-cancel-button").classList.remove("hide");
+        
         var myform = new FormData();
         ajax_course_image = new XMLHttpRequest();
 

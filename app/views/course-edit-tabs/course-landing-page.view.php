@@ -2,6 +2,8 @@
 <form>
     <div class="col-md-8 mx-auto">
         
+        <?php csrf() ?>
+        
         <div class="my-4 h5 my-4"><b>Целевая страница курса</b></div>
 
         <div class="input-group mb-3">
@@ -106,7 +108,7 @@
 
         <div class="my-4 row">
             <div class="col-sm-4">
-                <img src="<?=ROOT?>/assets/images/placeholder.jpg" style="width: 100%;">
+                <img class="js-image-upload-preview" src="<?=get_image($row->course_image)?>" style="width: 100%;height 220px; object-fit: cover;">
             </div>
             <div class="col-sm-8">
                 <div class="h5"><b>Изображение курса:</b></div>
@@ -124,7 +126,7 @@
 
         <div class="my-4 row">
             <div class="col-sm-4">
-                <img src="<?=ROOT?>/assets/images/placeholder.jpg" style="width: 100%;">
+                <img src="<?=get_image("")?>" style="width: 100%;height 220px; object-fit: cover;">
             </div>
             <div class="col-sm-8">
                 <div class="h5"><b>Рекламное видео:</b></div>

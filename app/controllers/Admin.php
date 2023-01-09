@@ -81,61 +81,88 @@ class Admin extends Controller
 
 			if($_SERVER['REQUEST_METHOD'] == "POST" && $row)
 			{
-				if(!empty($_POST['data_type']) && $_POST['data_type'] == "read")
-				{	// проверяем tab_name и подключаем нужный файл
-					if($_POST['tab_name'] == "course-landing-page")
-					{
-						include views_path('course-edit-tabs/course-landing-page');
+					if(!empty($_POST['data_type']) && $_POST['data_type'] == "read")
+					{	// проверяем tab_name и подключаем нужный файл
+						if($_POST['tab_name'] == "course-landing-page")
+						{
+							include views_path('course-edit-tabs/course-landing-page');
 
-					}else
-					if($_POST['tab_name'] == "course-messages")
-					{
-						include views_path('course-edit-tabs/course-messages');
-					}
-					
-				}else
-				if(!empty($_POST['data_type']) && $_POST['data_type'] == "save")
-				{
-
-
-					if($course->edit_validate($_POST, $id, $_POST['tab_name'])){
+						}else
+						if($_POST['tab_name'] == "course-messages")
+						{
+							include views_path('course-edit-tabs/course-messages');
+						}
 						
-						$course->update($id, $_POST);
+					}else
+						if(!empty($_POST['data_type']) && $_POST['data_type'] == "save")
+						{
+							// проверка валидности формы
+							if($_SESSION['csrf_token'] == $_POST['csrf_token']){
 
-						$info['data'] = "Курс успешно сохранен";
-						$info['data_type'] = "save";
+							if($course->edit_validate($_POST, $id, $_POST['tab_name'])){
 
-					}else{
+								// проверяем существует ли временное изображение
+								if($row->course_image_tmp != "" && file_exists($row->course_image_tmp))
+								{	// если существует, удаляем текущее изображение
+									if(file_exists($row->course_image))
+									{ 
+										unlink($row->course_image);
+									}
+									// присваиваем временное изображение курсу
+									$_POST['course_image'] = $row->course_image_tmp; 
+									$_POST['course_image_tmp'] = ""; // и удаляем временное изображение
+								}
 
-						$info['errors'] = $course->errors;
-						$info['data'] = "Ошибка сохранения";
-						$info['data_type'] = "save";
+								$course->update($id, $_POST);
 
-					}
-					// преобразуем массив в json и отправляем его в браузер, типа rest api
-					echo json_encode($info);
-					
-				}else
-				if(!empty($_POST['data_type']) && $_POST['data_type'] == "upload_course_image")
-				{
-					$folder = "uploads/courses/";
-					if(!file_exists($folder))
+								$info['data'] = "Курс успешно сохранен";
+								$info['data_type'] = "save";
+
+							}else{
+
+								$info['errors'] = $course->errors;
+								$info['data'] = "Ошибка сохранения";
+								$info['data_type'] = "save";
+
+							}
+						}else{
+							$info['errors'] = ['key'=>'value'];
+							$info['data'] = "Эта форма не валидна";
+							$info['data_type'] = $_POST['data_type'];
+		
+
+						}
+						// преобразуем массив в json и отправляем его в браузер, типа rest api
+						echo json_encode($info);
+						
+					}else
+					if(!empty($_POST['data_type']) && $_POST['data_type'] == "upload_course_image")
 					{
-						mkdir($folder, 0777, true);
+						$folder = "uploads/courses/";
+						if(!file_exists($folder))
+						{
+							mkdir($folder, 0777, true);
+						}
+
+						$errors = [];
+						// проверяем есть ли файл и совпадает ли tab_name
+						if(!empty($_FILES['image']['name']) && $_POST['tab_name'] == "course-landing-page")
+						{
+
+							$destination = $folder . time() . $_FILES['image']['name'];
+							move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+							// удалить старую временную картинку
+							if(file_exists($row->course_image_tmp))
+							{
+								unlink($row->course_image_tmp);
+							}
+							// обновить course_image_tmp
+							$course->update($id,['course_image_tmp'=>$destination]);
+						}
+						//show($_POST);
+						//show($_FILES);
 					}
-
-					$errors = [];
-					// проверяем есть ли файл и совпадает ли tab_name
-					if(!empty($_FILES['image']['name']) && $_POST['tab_name'] == "course-landing-page")
-					{
-
-						$destination = $folder . time() . $_FILES['image']['name'];
-						move_uploaded_file($_FILES['image']['tmp_name'], $destination);
-					}
-					//show($_POST);
-					//show($_FILES);
-				}
-
 				die;
 			}
 		}else

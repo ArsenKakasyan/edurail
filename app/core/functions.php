@@ -5,6 +5,13 @@
  * все функции находящиеся в этом модуле используются ВЕЗДЕ в этом проекте!
  */
 
+function csrf()
+{
+	$token = bin2hex(random_bytes(32));
+	$_SESSION['csrf_token'] = $token;
+	echo '<input type="hidden" name="csrf_token" value="'.$token.'">';
+}
+
 function show($stuff)
 {
 	echo "<pre>";
@@ -94,6 +101,16 @@ function str_to_url($url)
 	$url = preg_replace('~[^-a-z0-9_]+~', '', $url);
 	return $url;
 } 
+
+// функция доставки изображения для курса
+function get_image($file)
+{
+	if (file_exists($file)) {
+		return ROOT . "/". $file;
+	}
+	return ROOT."/assets/images/placeholder.jpg";
+}
+
 // функция сжатия изображения
 function resize_image($filename, $max_size = 700)
 {

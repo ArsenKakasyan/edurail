@@ -210,9 +210,9 @@
         </li><!-- End Messages Nav -->
 
         <li class="nav-item dropdown pe-3">
-
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="<?=ROOT?>/niceadmin/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            
+            <img src="<?=ROOT?>/niceadmin/assets/img/profile-img.jpg" alt="Profile" style="max-width:40px;max-height:40px;object-fit: cover;" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"><?=ucfirst(substr(Auth::getFirstname(),0,2))?>. <?=Auth::getLastname()?></span>
           </a><!-- End Profile Iamge Icon -->
 
