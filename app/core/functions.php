@@ -9,7 +9,7 @@ function csrf()
 {
 	$token = bin2hex(random_bytes(32));
 	$_SESSION['csrf_token'] = $token;
-	echo '<input type="hidden" name="csrf_token" value="'.$token.'">';
+	echo '<input class="js-csrf_token" type="hidden" name="csrf_token" value="'.$token.'">';
 }
 
 function show($stuff)

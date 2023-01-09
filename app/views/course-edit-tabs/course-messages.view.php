@@ -1,5 +1,6 @@
 
 <form>
+    <?php csrf() ?>
     <div class="col-md-8 mx-auto">
         
         <div class="my-4 h5 my-4"><b>Сообщения курса</b></div>

@@ -394,7 +394,7 @@
         document.querySelector(".js-image-upload-info").classList.remove("hide");
         document.querySelector(".js-image-upload-input").classList.add("hide");
         document.querySelector(".js-image-upload-cancel-button").classList.remove("hide");
-        
+
         var myform = new FormData();
         ajax_course_image = new XMLHttpRequest();
 
@@ -406,7 +406,7 @@
                     //все гуд
                     //alert("Загрузка завершена");
                     
-                    alert(ajax_course_image.responseText); 
+                    //alert(ajax_course_image.responseText); 
                 
                 }
                     course_image_uploading = false;
@@ -437,6 +437,7 @@
         myform.append('data_type', 'upload_course_image');
         myform.append('tab_name', tab);
         myform.append('image', file);
+        myform.append('csrf_token', document.querySelector(".js-csrf_token").value);
 
         ajax_course_image.open('post', '', true);
         ajax_course_image.send(myform);
@@ -445,6 +446,94 @@
     function ajax_course_image_cancel()
     {
         ajax_course_image.abort();
+    }
+
+
+
+    var course_video_uploading = false;
+    var ajax_course_video = null;
+
+    function upload_course_video(file)
+    {
+        if (course_video_uploading)
+        {
+            alert("Идет загрузка файла");
+            return;
+        }
+
+        // проверка типа файла
+        var allowed_types = ['mp4'];
+        var ext = file.name.split('.').pop().toLowerCase();
+
+        if(!allowed_types.includes(ext))
+        {
+            alert("Разрешенные типы файлов: "+allowed_types.join(", "));
+            return;
+        }
+        // превью видео
+        var vid = document.querySelector(".js-video-upload-preview");
+        var link = URL.createObjectURL(file);
+        vid.src = link;
+
+        // начало загрузки
+        course_video_uploading = true;
+
+        document.querySelector(".js-video-upload-info").innerHTML = file.name;
+        document.querySelector(".js-video-upload-info").classList.remove("hide");
+        document.querySelector(".js-video-upload-input").classList.add("hide");
+        document.querySelector(".js-video-upload-cancel-button").classList.remove("hide");
+
+        var myform = new FormData();
+        ajax_course_video = new XMLHttpRequest();
+
+        // обработчик для закачки
+        ajax_course_video.addEventListener('readystatechange', function(){
+        if(ajax_course_video.readyState == 4)
+            {
+                if(ajax_course_video.status == 200){
+                    //все гуд
+                    //alert("Загрузка завершена");
+                    
+                    //alert(ajax_course_video.responseText); 
+                
+                }
+                    course_video_uploading = false;
+                    document.querySelector(".js-video-upload-info").classList.add("hide");
+                    document.querySelector(".js-video-upload-input").classList.remove("hide");
+                    document.querySelector(".js-video-upload-cancel-button").classList.add("hide");
+            }
+        });
+
+        // обработчик для ошибок
+        ajax_course_video.addEventListener('error', function(){
+            alert("Возникла ошибка");
+        });
+        // обработчик для отмены
+        ajax_course_video.addEventListener('abort', function(){
+            alert("Загрузка отменена");
+        });
+
+        // обработчик для прогресса загрузки файла
+        ajax_course_video.upload.addEventListener('progress', function(e){
+
+            var percent = Math.round((e.loaded / e.total) * 100);
+            document.querySelector(".progress-bar-video").style.width = percent + "%";
+            document.querySelector(".progress-bar-video").innerHTML = percent + "%";
+
+        });
+
+        myform.append('data_type', 'upload_course_video');
+        myform.append('tab_name', tab);
+        myform.append('video', file);
+        myform.append('csrf_token', document.querySelector(".js-csrf_token").value);
+
+        ajax_course_video.open('post', '', true);
+        ajax_course_video.send(myform);
+    }
+    // отмена загрузки файла
+    function ajax_course_video_cancel()
+    {
+        ajax_course_video.abort();
     }
 </script>
 

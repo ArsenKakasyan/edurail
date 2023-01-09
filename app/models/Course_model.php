@@ -43,7 +43,7 @@ class Course_model extends Model
 		'published',
 		'subtitle',
 		'currency_id',
-		'csrf_code',
+		'csrf_token',
 
 	];
 

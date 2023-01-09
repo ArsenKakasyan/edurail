@@ -1,7 +1,7 @@
 
 <form>
     <div class="col-md-8 mx-auto">
-        
+
         <?php csrf() ?>
         
         <div class="my-4 h5 my-4"><b>Целевая страница курса</b></div>
@@ -126,19 +126,19 @@
 
         <div class="my-4 row">
             <div class="col-sm-4">
-                <img src="<?=get_image("")?>" style="width: 100%;height 220px; object-fit: cover;">
+                    <video controls class="js-video-upload-preview" src="$row->course_promo_video" type="video/mp4" style="width: 100%;height 220px; object-fit: cover;"></video>
             </div>
             <div class="col-sm-8">
                 <div class="h5"><b>Рекламное видео:</b></div>
                 После просмотра качественного промовидео вероятность того, что студенты запишутся на ваш курс, может увеличиться в 5 раз. A при наличии исключительно хороших видео — даже в 10 раз.
 
                 <br><br>
-                <input class="js-video-upload-input" type="file" name="">
+                <input  onchange="upload_course_video(this.files[0])" class="js-video-upload-input" type="file" name="">
                 <div class="progress my-4">
-                    <div class="progress-bar progress-bar-video" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    <div class="progress-bar progress-bar-video" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                 </div>
                 <div class="js-video-upload-info hide"></div>
-                <button type="button" class="js-video-upload-cancel-button btn btn-danger text-white btn-sm hide">Отменить</button>
+                <button type="button" onclick="ajax_course_video_cancel()" class="js-video-upload-cancel-button btn btn-danger text-white btn-sm hide">Отменить</button>
             </div>
         </div>
 

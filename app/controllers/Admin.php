@@ -102,7 +102,7 @@ class Admin extends Controller
 							if($course->edit_validate($_POST, $id, $_POST['tab_name'])){
 
 								// проверяем существует ли временное изображение
-								if($row->course_image_tmp != "" && file_exists($row->course_image_tmp))
+								if($row->course_image_tmp != "" && file_exists($row->course_image_tmp) && $row->csrf_token == $_POST['csrf_token'])
 								{	// если существует, удаляем текущее изображение
 									if(file_exists($row->course_image))
 									{ 
@@ -158,7 +158,7 @@ class Admin extends Controller
 								unlink($row->course_image_tmp);
 							}
 							// обновить course_image_tmp
-							$course->update($id,['course_image_tmp'=>$destination]);
+							$course->update($id,['course_image_tmp'=>$destination, 'csrf_token'=>$_POST['csrf_token']]);
 						}
 						//show($_POST);
 						//show($_FILES);
