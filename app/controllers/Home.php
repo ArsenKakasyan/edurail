@@ -14,6 +14,11 @@ class Home extends Controller
 
 		// получаем курсы для домашней страницы
 		$data['rows'] = $course->where(['approved'=>0], 'desc', 7);
+
+		// read all courses order by trending value
+		$query = "select * from courses where approved = 0 order by trending desc limit 5";
+		$data['trending'] = $course->query($query);
+
 		// если массив существует, то разбиваем его на два массива
 		if($data['rows']){
 			// получаем первый элемент массива

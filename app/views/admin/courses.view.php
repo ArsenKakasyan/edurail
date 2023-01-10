@@ -166,6 +166,7 @@
                 <tr>
                 <th scope="col">#</th>
                 <th scope="col">Название</th>
+                <th scope="col">Картинка</th>
                 <th scope="col">Преподаватель</th>
                 <th scope="col">Категория</th>
                 <th scope="col">Цена</th>
@@ -183,9 +184,10 @@
                     <tr>
                     <th scope="row"><?=$row->id?></th>
                     <td><?=esc($row->title)?></td>
-                    <td><?=esc($row->user_row->name ?? 'Неизвестный')?></td>
-                    <td><?=esc($row->category_row->category ?? 'Неизвестный')?></td>
-                    <td><?=esc($row->price_row->name ?? 'Неизвестный')?></td>
+                    <td><img src="<?=get_image($row->course_image)?>" style="width: 100px;height: 100px;object-fit: cover;"/></td>
+                    <td><?=esc($row->user_row->name ?? 'Неизвестно')?></td>
+                    <td><?=esc($row->category_row->category ?? 'Неизвестно')?></td>
+                    <td><?=esc($row->price_row->name ?? 'Неизвестно')?></td>
                     <td><?=esc($row->primary_subject)?></td>
                     <td><?=get_date($row->date)?></td>
                     <td>

@@ -44,6 +44,8 @@ class Course_model extends Model
 		'subtitle',
 		'currency_id',
 		'csrf_token',
+		'views',
+		'trending',
 
 	];
 
