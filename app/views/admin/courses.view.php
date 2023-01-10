@@ -73,7 +73,7 @@
        
 
         <div class="col-md-12">
-            <select name="category_id" id="inputState" class="form-select" <?=!empty($errors['category_id']) ? 'border-danger':'';?>">
+            <select name="category_id" id="inputState" class="form-select" <?=!empty($errors['category_id']) ? 'border-danger':'';?>>
 
                 <option value="" selected="">Категория курса...</option>
                 <?php if(!empty($categories)):?>

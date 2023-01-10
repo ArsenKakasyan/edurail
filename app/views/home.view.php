@@ -58,7 +58,7 @@
       </div>
     </section><!-- End Hero Slider Section -->
 
-    <?php if(!empty($rows)):?>
+    <?php if(!empty($first_row)):?>
 
     <!-- ======= Post Grid Section ======= -->
     <section id="posts" class="posts">
@@ -67,16 +67,16 @@
           <div class="col-lg-4">
 
             <div class="post-entry-1 lg">
-              <a href="single-post.html"><img src="<?=get_image($rows[0]->course_image)?>" alt="" style="object-fit: cover;" class="img-fluid"></a>
-              <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span><?=$rows[0]->date?></span></div>
-              <h2><a href="single-post.html"><?=esc($rows[0]->title)?></a></h2>
-              <p class="mb-4 d-block"><?=esc($rows[0]->description)?></p>
+              <a href="single-post.html"><img src="<?=get_image($first_row->course_image)?>" alt="" style="object-fit: cover;" class="img-fluid"></a>
+              <div class="post-meta"><span class="date"><?=esc($first_row->category ?? 'Категория не задана')?></span> <span class="mx-1">&bullet;</span> <span><?=$first_row->date?></span></div>
+              <h2><a href="single-post.html"><?=esc($first_row->title)?></a></h2>
+              <p class="mb-4 d-block"><?=esc($first_row->description)?></p>
 
-              <?php if(!empty($rows[0]->user_row)):?>
+              <?php if(!empty($first_row->user_row)):?>
                 <div class="d-flex align-items-center author">
-                  <div class="photo"><img src="<?=get_image($rows[0]->user_row->image)?>" style="max-height:40px;object-fit:cover;" alt="" class="img-fluid"></div>
+                  <div class="photo"><img src="<?=get_image($first_row->user_row->image)?>" style="max-height:40px;object-fit:cover;" alt="" class="img-fluid"></div>
                   <div class="name">
-                    <h3 class="m-0 p-0"><?=$rows[0]->user_row->firstname?> <?=$rows[0]->user_row->lastname?></h3>
+                    <h3 class="m-0 p-0"><?=$first_row->user_row->firstname?> <?=$first_row->user_row->lastname?></h3>
                   </div>
                 </div>
               <?php endif;?>
@@ -86,38 +86,30 @@
           <div class="col-lg-8">
             <div class="row g-5">
               <div class="col-lg-4 border-start custom-border">
-                <div class="post-entry-1">
-                  <a href="single-post.html"><img src="<?=ROOT?>/zenblog/assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>
-                  <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                  <h2><a href="single-post.html">Let’s Get Back to Work, New York</a></h2>
-                </div>
-                <div class="post-entry-1">
-                  <a href="single-post.html"><img src="<?=ROOT?>/zenblog/assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
-                  <div class="post-meta"><span class="date">Food</span> <span class="mx-1">&bullet;</span> <span>Jul 17th '22</span></div>
-                  <h2><a href="single-post.html">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
-                </div>
-                <div class="post-entry-1">
-                  <a href="single-post.html"><img src="<?=ROOT?>/zenblog/assets/img/post-landscape-7.jpg" alt="" class="img-fluid"></a>
-                  <div class="post-meta"><span class="date">Design</span> <span class="mx-1">&bullet;</span> <span>Mar 15th '22</span></div>
-                  <h2><a href="single-post.html">Why Craigslist Tampa Is One of The Most Interesting Places On the Web?</a></h2>
-                </div>
+
+                <?php if(!empty($rows1)):?>
+                  <?php foreach($rows1 as $row):?>
+                    <div class="post-entry-1">
+                      <a href="single-post.html"><img src="<?=get_image($row->course_image)?>" style ="" alt="" class="img-fluid"></a>
+                      <div class="post-meta"><span class="date"><?=esc($row->category_row->category ?? 'Категория не задана')?></span> <span class="mx-1">&bullet;</span> <span><?=get_date($row->date)?></span></div>
+                      <h2><a href="single-post.html"><?=esc(ucfirst($row->title))?></a></h2>
+                    </div>
+                  <?php endforeach;?>
+                <?php endif;?>
+
               </div>
-              <div class="col-lg-4 border-start custom-border">
-                <div class="post-entry-1">
-                  <a href="single-post.html"><img src="<?=ROOT?>/zenblog/assets/img/post-landscape-3.jpg" alt="" class="img-fluid"></a>
-                  <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                  <h2><a href="single-post.html">6 Easy Steps To Create Your Own Cute Merch For Instagram</a></h2>
-                </div>
-                <div class="post-entry-1">
-                  <a href="single-post.html"><img src="<?=ROOT?>/zenblog/assets/img/post-landscape-6.jpg" alt="" class="img-fluid"></a>
-                  <div class="post-meta"><span class="date">Tech</span> <span class="mx-1">&bullet;</span> <span>Mar 1st '22</span></div>
-                  <h2><a href="single-post.html">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
-                </div>
-                <div class="post-entry-1">
-                  <a href="single-post.html"><img src="<?=ROOT?>/zenblog/assets/img/post-landscape-8.jpg" alt="" class="img-fluid"></a>
-                  <div class="post-meta"><span class="date">Travel</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                  <h2><a href="single-post.html">5 Great Startup Tips for Female Founders</a></h2>
-                </div>
+                <div class="col-lg-4 border-start custom-border">
+
+                <?php if(!empty($rows2)):?>
+                  <?php foreach($rows2 as $row):?>
+                      <div class="post-entry-1">
+                        <a href="single-post.html"><img src="<?=get_image($row->course_image)?>" style ="" alt="" class="img-fluid"></a>
+                        <div class="post-meta"><span class="date"><?=esc($row->category_row->category ?? 'Категория не задана')?></span> <span class="mx-1">&bullet;</span> <span><?=get_date($row->date)?></span></div>
+                        <h2><a href="single-post.html"><?=esc(ucfirst($row->title))?></a></h2>
+                      </div>
+                    <?php endforeach;?>
+                  <?php endif;?>
+
               </div>
 
               <!-- Trending Section -->
