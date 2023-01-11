@@ -23,7 +23,7 @@ class App
 			require "../app/controllers/".$this->controller.".php";
 		}
 		#инциализация (не)найденного файла класса
-		$mycontroller = new $this->controller(); 
+		$mycontroller = new ("Controller\\".$this->controller)(); 
 		#проверка существования метода
 		$mymethod = $arr[1] ?? $this->method;
 

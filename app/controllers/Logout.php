@@ -1,8 +1,12 @@
 <?php
 
+namespace Controller;
+
 /**
  * logout class
  */
+
+use \Model\Auth;
 class Logout extends Controller
 {
 	

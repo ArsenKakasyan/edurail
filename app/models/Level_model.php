@@ -1,5 +1,7 @@
 <?php
 
+namespace Model;
+
 /**
  * levels model
  * 

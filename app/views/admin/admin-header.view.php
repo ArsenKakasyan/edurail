@@ -1,3 +1,5 @@
+<?php use \Model\Auth; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -315,6 +317,13 @@
         <a class="nav-link " href="<?=ROOT?>/admin/profile">
           <i class="bi bi-person"></i>
           <span>Аккаунт</span>
+        </a>
+      </li><!-- End Dashboard Nav --> 
+
+      <li class="nav-item">
+        <a class="nav-link " href="<?=ROOT?>/admin/slider-images">
+          <i class="bi bi-image"></i>
+          <span>Слайдер</span>
         </a>
       </li><!-- End Dashboard Nav --> 
 

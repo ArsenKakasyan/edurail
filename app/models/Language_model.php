@@ -1,5 +1,7 @@
 <?php
 
+namespace Model;
+
 /**
  * languages model
  * 

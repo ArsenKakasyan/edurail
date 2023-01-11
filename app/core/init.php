@@ -3,7 +3,9 @@
 #анонимная функция автозагрузки если класс не найден
 spl_autoload_register(function($class_name)
 {
-	require "../app/models/" .$class_name . ".php";
+	$parts = explode("\\", $class_name); #разбиваем строку на массив
+	$class_name = end($parts); #получаем имя класса
+	require_once "../app/models/" .$class_name . ".php";
 });
 
 

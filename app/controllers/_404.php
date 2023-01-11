@@ -1,5 +1,5 @@
 <?php
-
+namespace Controller;
 
 /**
  * 404 class page not found

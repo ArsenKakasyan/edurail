@@ -1,8 +1,10 @@
 <?php
-
+namespace Controller;
 /**
  * admin class
  */
+
+use \Model\Auth;
 class Admin extends Controller
 {
 	
@@ -28,12 +30,12 @@ class Admin extends Controller
 			redirect('login');
 		}
 		$user_id = Auth::getId();
-		$course = new Course_model();
-		$category = new Category_model();
-		$language = new Language_model();
-		$level = new Level_model();
-		$price = new Price_model();
-		$currency = new Currency_model();
+		$course = new \Model\Course();
+		$category = new \Model\Category_model();
+		$language = new \Model\Language_model();
+		$level = new \Model\Level_model();
+		$price = new \Model\Price_model();
+		$currency = new \Model\Currency_model();
 
 		$data = [];
 		$data['action'] = $action;
@@ -187,7 +189,7 @@ class Admin extends Controller
 
 		$id = $id ?? Auth::getId();
 		#row представлят data из бд
-		$user = new User();
+		$user = new \Model\User();
 		$data['row'] = $row = $user->first(['id'=>$id]);
 
 		// post & update для редактирования аккаунта

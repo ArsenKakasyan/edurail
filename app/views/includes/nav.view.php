@@ -1,3 +1,4 @@
+<?php use \Model\Auth; ?>
 
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center fixed-top">
@@ -37,6 +38,7 @@
           <li><a href="<?=ROOT?>/about">О нас</a></li>
           <li><a href="<?=ROOT?>/contact">Контакты</a></li>
           <!-- Прячем вкладки из хедера когда auth -->
+         
           <?php if(!Auth::logged_in()):?>
             <li><a href="<?=ROOT?>/login">Войти</a></li>
             <li><a href="<?=ROOT?>/signup">Регистрация</a></li>

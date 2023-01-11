@@ -1,10 +1,12 @@
 <?php
 
+namespace Model;
+
 /**
  * Courses model (модель - простой класс позволяющий подключиться к базе данных)
  * все функции находящиеся в этом модуле используются ТОЛЬКО в бизнес логике КУРСОВ!
  */
-class Course_model extends Model
+class Course extends Model
 {
 	public $errors = [];
 	protected $table = "courses";
@@ -167,7 +169,7 @@ class Course_model extends Model
 
 	protected function get_category($rows)
 	{	#реинициализируем db class во избежании лупа
-		$db = new Database();
+		$db = new \Database();
 		if(!empty($rows[0]->category_id))
 		{	#проходим через каждую строку в таблице 1
 			foreach($rows as $key => $row){
@@ -189,7 +191,7 @@ class Course_model extends Model
 	}
 	protected function get_user($rows)
 	{
-		$db = new Database();
+		$db = new \Database();
 		if(!empty($rows[0]->user_id))
 		{	#проходим через каждую строку в таблице 1
 			foreach($rows as $key => $row){
@@ -208,7 +210,7 @@ class Course_model extends Model
 	}
 	protected function get_price($rows)
 	{
-		$db = new Database();
+		$db = new \Database();
 		if(!empty($rows[0]->price_id))
 		{	#проходим через каждую строку в таблице 1
 			foreach($rows as $key => $row){

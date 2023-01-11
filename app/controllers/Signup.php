@@ -1,5 +1,7 @@
 <?php
 
+namespace Controller;
+
 /**
  * signup class
  */
@@ -10,7 +12,7 @@ class Signup extends Controller
 	{# инициализация класса signup для страницы signup.view.php
 
 		$data['errors'] = [];
-		$user = new User(); 
+		$user = new \Model\User(); 
 		#если метод запроса == post, тогда исполняется тело
 		if($_SERVER['REQUEST_METHOD'] == "POST")
 		{

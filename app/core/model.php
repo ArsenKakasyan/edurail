@@ -1,11 +1,16 @@
 <?php
 
+namespace Model;
+
 /**
  * main model class (как и controller, только для моделей) с функциями для чтения данных из бд
  * 
  * в соответствии с шаблоном MVC каждая таблица будет иметь модель, в свою очередь каждая модель должна иметь возможноть 
  * использовать общий функционал из класса Model
  */
+
+use \Database;
+
 class Model extends Database
 {
 	protected $table = "";
